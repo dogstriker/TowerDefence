@@ -77,7 +77,9 @@
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Behaviors\MoveForward.cs" />
     <Compile Include="Behaviors\MoveTo.cs" />
+    <Compile Include="Behaviors\Reloading.cs" />
     <Compile Include="Behaviors\RotateTo.cs" />
+    <Compile Include="Behaviors\ShootWhenAimed.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GOParams.cs" />
     <Compile Include="IAngleProvider.cs" />

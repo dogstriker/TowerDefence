@@ -98,6 +98,7 @@ namespace TowerDefence
                     u.Par.ChargeReady = 330;
                     u.Par.ChargeRate = 10;
                     u.AddBehavior("shoot", new ShootWhenAimed(u, Base.Par.X, Base.Par.Y));
+                    u.AddBehavior("Reloadng", new Reloading(u));
                     break;
                 case "Rocket":
                     u = new UGameObjectBase(par.X, par.Y, "MissileRed1", 1);

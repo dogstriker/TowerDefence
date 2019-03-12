@@ -21,7 +21,7 @@ namespace TowerDefence
 
         public override void Act()
         {
-            Debug.WriteLine("RotateTo");
+           // Debug.WriteLine("RotateTo");
             var delta = GameMath.GetRotationToTargetAngularChange(gObj.Par.Angle,
                 GameMath.GetAngleOfVector(Target.X - gObj.Par.X, Target.Y - gObj.Par.Y),
                 gObj.Par.AngularVelocity);
