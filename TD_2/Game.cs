@@ -99,12 +99,14 @@ namespace TowerDefence
                     u.Par.ChargeRate = 10;
                     u.AddBehavior("shoot", new ShootWhenAimed(u, Base.Par.X, Base.Par.Y));
                     u.AddBehavior("Reloadng", new Reloading(u));
+                    
                     break;
                 case "Rocket":
                     u = new UGameObjectBase(par.X, par.Y, "MissileRed1", 1);
                     u.Par.Velocity = 8;
                     u.SetAngle(par.Angle);
                     u.AddBehavior("Move", new MoveForward(u));
+                    u.AddBehavior("Hit", new Hit(u,Base));
                     break;
             }
 

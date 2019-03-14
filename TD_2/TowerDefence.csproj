@@ -34,21 +34,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BaseLogic, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\библиотеки dll\BaseLogic.dll</HintPath>
+    <Reference Include="BaseLogic">
+      <HintPath>..\GameMaps\BaseLogic.dll</HintPath>
     </Reference>
-    <Reference Include="CanvasVisualisation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\библиотеки dll\CanvasVisualisation.dll</HintPath>
+    <Reference Include="CanvasVisualisation">
+      <HintPath>..\GameMaps\CanvasVisualisation.dll</HintPath>
     </Reference>
-    <Reference Include="Interaction, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\библиотеки dll\Interaction.dll</HintPath>
+    <Reference Include="Interaction">
+      <HintPath>..\GameMaps\Interaction.dll</HintPath>
     </Reference>
-    <Reference Include="LabLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Documents\библиотеки dll\LabLib.dll</HintPath>
+    <Reference Include="LabLib">
+      <HintPath>..\GameMaps\LabLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -59,9 +55,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="TaskLibrary">
-      <HintPath>..\..\..\Documents\библиотеки dll\TaskLibrary.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -74,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\Behavior.cs" />
     <Compile Include="Behaviors\ControlSimpleFlyer.cs" />
+    <Compile Include="Behaviors\Hit.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Behaviors\MoveForward.cs" />
     <Compile Include="Behaviors\MoveTo.cs" />
