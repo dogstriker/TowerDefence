@@ -76,8 +76,9 @@
     <Compile Include="Behaviors\ShootWhenAimed.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GOParams.cs" />
+    <Compile Include="IActor.cs" />
     <Compile Include="IAngleProvider.cs" />
-    <Compile Include="UCompositeObject.cs" />
+    <Compile Include="UCompositeGameObject.cs" />
     <Compile Include="UGameObjectBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

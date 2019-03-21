@@ -6,7 +6,7 @@ namespace TowerDefence
     {
         double Tx;
         double Ty;
-        public ShootWhenAimed(UGameObjectBase g,double tx, double ty): base(g)
+        public ShootWhenAimed(double tx, double ty)
             
         {
             Tx = tx;

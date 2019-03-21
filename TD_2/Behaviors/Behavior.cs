@@ -3,24 +3,37 @@
     public abstract class Behavior : IBehavior
     {
         static public Game game { get; set; }
-        private string _name = "";
-        public string Name
+
+        //public Behavior(string bName)
+        //{
+        //    Name = bName;
+        //}
+
+        public string Name { get; protected set; }
+
+        protected UGameObjectBase unit = null;
+
+        public void SetUnit(UGameObjectBase g, string behaviorName)
         {
-            get
+            if (unit == null)
             {
-                return _name;
+                unit = g;
+                Name = behaviorName;
             }
-            set
+            else
             {
-                if (_name.Length == 0) _name = value;
+                throw new System.Exception("Невозможно повторно назаначить объект управления.");
             }
-        }
-        protected UGameObjectBase unit;
-        public Behavior(UGameObjectBase _g)
-        {
-            unit = _g;
         }
 
         public abstract void Act();
+
+        public virtual void Init(params object[] par)
+        { 
+        }
+
+        public virtual void RemoveNested()
+        {
+        }
     }
 }

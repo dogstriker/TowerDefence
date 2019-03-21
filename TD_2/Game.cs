@@ -9,11 +9,11 @@ namespace TowerDefence
     public class Game
     {
         public UniversalMap_Wpf Map;
-        List<UGameObjectBase> GameObjectsList = new List<UGameObjectBase>();
+        public List<UGameObjectBase> GameObjectsList = new List<UGameObjectBase>();
         TimerController timer = new TimerController();
         List<List<UGameObjectBase>> teamUnits = new List<List<UGameObjectBase>>();
-        List<UGameObjectBase> friendly = new List<UGameObjectBase>();
-        List<UGameObjectBase> enemies = new List<UGameObjectBase>();
+        public List<UGameObjectBase> friendly = new List<UGameObjectBase>();
+        public List<UGameObjectBase> enemies = new List<UGameObjectBase>();
         //List<UGameObjectBase> bullets = new List<UGameObjectBase>();
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
 
@@ -31,47 +31,7 @@ namespace TowerDefence
         {
             for(int i = 0; i < GameObjectsList.Count; i++)
             {
-                GameObjectsList[i].Aсt();
-            }
-        }
-        UGameObjectBase u;
-        public void TestAdd()
-        {
-            u = new UGameObjectBase(20, 20, "platformRed1");
-            u.Par.Velocity = 0.5;
-            u.Par.AngularVelocity = 1;
-            GameObjectsList.Add(u);
-            u.SetCoord(400, 200);
-            u.SetAngle(-30);
-            timer.AddAction(change, 2000);
-            //u.SetCoord(100, 300);
-            //u.AddBehavior("1", new MoveTo(u, 300, 300, 2));
-        }
-
-        static int acct =0;
-        public void change()
-        {
-            switch(acct)
-            {
-                case 0:
-                    acct = 1;
-                    break;
-                case 1:
-                    u.RemoveBehavior("3");
-                    u.AddBehavior("1", new MoveTo(u, new DoubleCoordinate(100,100), 2));
-                    acct = 2;
-                    break;
-                case 2:
-                    u.RemoveBehavior("1");
-                    u.AddBehavior("2", new RotateTo(u, new DoubleCoordinate(0, 0)));
-                    acct = 3;
-                    break;
-                case 3:
-                    u.RemoveBehavior("2");
-                    u.AddBehavior("3", new MoveForward(u));
-                    acct = 0;
-                    break;
-
+                GameObjectsList[i].Act();
             }
         }
 
@@ -90,23 +50,25 @@ namespace TowerDefence
             {
                 case "SimpleFlyer":
                     u = new UGameObjectBase(par.X, par.Y, "flyerRed1", 1);
+                    u.SetContainerSize(40, 40);
                     u.Par.Velocity = 3;
                     u.Par.AngularVelocity = 1;
                     u.SetAngle(-90);
-                    u.AddBehavior("ctrl",new ControlSimpleFlyer(u));
+                    u.AddBehavior(new ControlSimpleFlyer(), "ctrl");
                     u.Par.ChargeLevel = 330;
                     u.Par.ChargeReady = 330;
                     u.Par.ChargeRate = 10;
-                    u.AddBehavior("shoot", new ShootWhenAimed(u, Base.Par.X, Base.Par.Y));
-                    u.AddBehavior("Reloadng", new Reloading(u));
+                    u.AddBehavior(new ShootWhenAimed(Base.Par.X, Base.Par.Y), "Shoot");
+                    u.AddBehavior(new Reloading(), "Reloadng");
                     
                     break;
                 case "Rocket":
                     u = new UGameObjectBase(par.X, par.Y, "MissileRed1", 1);
+                    u.SetContainerSize(30, 12);
                     u.Par.Velocity = 8;
                     u.SetAngle(par.Angle);
-                    u.AddBehavior("Move", new MoveForward(u));
-                    u.AddBehavior("Hit", new Hit(u,Base));
+                    u.AddBehavior(new MoveForward(), "Move");
+                    u.AddBehavior(new Hit(Base), "Hit");
                     break;
             }
 

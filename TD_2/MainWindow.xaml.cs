@@ -56,6 +56,7 @@ namespace TowerDefence
         }
         void AddPictures()
         {
+            game.Map.Library.ImagesFolder = new PathInfo { Path = "..\\..\\images", Type = PathType.Relative };
             ReadPictures("platform", "Red", 4);
             ReadPictures("flyer", "Red", 3);
             ReadPictures("Missile", "Red", 1);

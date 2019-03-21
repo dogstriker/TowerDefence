@@ -5,16 +5,9 @@ namespace TowerDefence
     public class ControlSimpleFlyer : Behavior
     {
         ICoordinateProvider Target;
-        public ControlSimpleFlyer(UGameObjectBase u) : base(u)
+        public ControlSimpleFlyer() //: base(u, name)
         {
 
-            // задаем цель
-            GetTarget();
-            // поведение "двигаться вперед" у флаера есть всегда
-            unit.AddBehavior("MoveForward",new MoveForward(unit));
-            // задаем начальное состояние и поведение
-            unit.AddBehavior("Rotate", new RotateTo(unit, Target));
-            State = 1;
         }
 
         int State;
@@ -29,17 +22,18 @@ namespace TowerDefence
             switch (State)
             {
                 case 1:
-                    if(GameMath.IsNearby(unit.Par,Target))
+                    if (GameMath.IsNearby(unit.Par, Target))
                     {
+                        unit.RemoveBehavior("rotate");
                         State = 2;
-                        unit.RemoveBehavior("Rotate");
                     }
                     break;
                 case 2:
                     if (!GameMath.IsNearby(unit.Par, Target, 150))
                     {
+                        GetTarget();
+                        unit.AddBehavior(new RotateTo(Target), "rotate");
                         State = 1;
-                        unit.AddBehavior("Rotate", new RotateTo(unit, Target));
                     }
                     break;
             }
@@ -49,6 +43,18 @@ namespace TowerDefence
         {
             // пока что цель - это всегда база.
             Target = game.Base.Par;
+        }
+
+        public override void Init(params object[] par)
+        {
+            // задаем цель
+            GetTarget();
+            // поведение "двигаться вперед" у флаера есть всегда
+            unit.AddBehavior(new MoveForward(), "moveForvard");
+
+            // задаем начальное состояние и поведение
+            State = 1;
+            unit.AddBehavior(new RotateTo(Target), "rotate");
         }
     }
 }

@@ -2,20 +2,20 @@
 using GameMaps;
 namespace TowerDefence
 {
-    public class UGameObjectBase
+    public class UGameObjectBase : IActor
     {
         private Dictionary<string, IBehavior> actions = new Dictionary<string, IBehavior>();
         private List<IBehavior> act = new List<IBehavior>();
 
 
         public GOParams Par { get; protected set; }
-        public int Team { get; protected set; }
+        public int Team { get; }
 
 
 
         static int count = 0;
 
-        protected string container;
+        public string Container { get; protected set; }
 
         static public Game game;
 
@@ -23,44 +23,50 @@ namespace TowerDefence
         {
             Par = new GOParams();
             Team = team;
-            container = PictureName;
-            container = "u" + (++count).ToString();
+            Container = PictureName;
+            Container = "u" + (++count).ToString();
 
-            game.Map.Library.AddContainer(container, PictureName, true, game.Map.CellSize);
+            game.Map.Library.AddContainer(Container, PictureName, ContainerType.AutosizedSingleImage);
             SetCoord(x, y);
 
         }
+
+
         public void SetContainerSize(int Xsize, int Ysize)
         {
-            game.Map.ContainerSetSize(container, Xsize, Ysize);
+            game.Map.ContainerSetSize(Container, Xsize, Ysize);
         }
 
         public void SetAngle(double angle)
         {
             Par.Angle = angle;
-            game.Map.ContainerSetAngle(container, (int)Par.Angle);
+            game.Map.ContainerSetAngle(Container, (int)Par.Angle);
         }
  
         public void SetCoord(double x, double y)
         {
             Par.X = x;
             Par.Y = y;
-            game.Map.ContainerSetCoordinate(container, x, y);
+            game.Map.ContainerSetCoordinate(Container, x, y);
         }
-        public string GetContainerName()
-        {
-            return container;
-        }
+        //public string GetContainerName()
+        //{
+        //    return Container;
+        //}
         public void removeObject()
         {
-            game.Map.ContainerRemove(container);
+            game.Map.ContainerRemove(Container);
+            game.GameObjectsList.Remove(this);
+            if (Par.IsFriendly) game.friendly.Remove(this);
+            else game.enemies.Remove(this);
         }
 
-        public void AddBehavior(string name, IBehavior b)
+        public void AddBehavior(IBehavior b, string behaviorName)
         {
-            if (actions.ContainsKey(name)) actions[name] = b;
-            else actions.Add(name, b);
-            b.Name = name;
+            b.SetUnit(this, behaviorName);
+            b.Init();
+            if (actions.ContainsKey(b.Name)) actions[b.Name] = b;
+            else actions.Add(b.Name, b);
             act.Add(b);
         }
 
@@ -73,13 +79,14 @@ namespace TowerDefence
             }
         }
 
-        public void Aсt()
+        public virtual void Act()
         {
             for(int i = 0; i < act.Count; i++)
             {
                 act[i].Act();
             }
         }
+
     }
 
 

@@ -8,10 +8,16 @@ namespace TowerDefence
     {
         double dx, dy, precision, tx, ty;
         ICoordinateProvider target;
-        public MoveTo(UGameObjectBase g, ICoordinateProvider _target, int prec = 2) : base(g)
+        //public MoveTo(UGameObjectBase u,ICoordinateProvider _target, string name, int prec = 2) : base(u, name)
+        //{
+        //    target = _target;
+        //    SetDelta();
+        //    precision = prec;
+        //}
+
+        public MoveTo(ICoordinateProvider _target, int prec = 2)
         {
             target = _target;
-            SetDelta();
             precision = prec;
         }
 
@@ -41,6 +47,11 @@ namespace TowerDefence
                 unit.RemoveBehavior(Name);
             }
 
+        }
+
+        public override void Init(params object[] par)
+        {
+            SetDelta();
         }
     }
 }

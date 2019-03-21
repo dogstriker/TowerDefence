@@ -13,19 +13,22 @@ namespace TowerDefence
         /// </summary>
         /// <param name="obj">Объект, которым управляем</param>
         /// <param name="target">Цель</param>
-        public RotateTo(UGameObjectBase obj, ICoordinateProvider target) : base(obj)
+        //public RotateTo(UGameObjectBase u, ICoordinateProvider target, string name) : base(u, name)
+        //{
+        //    Target = target;
+        //}
+
+        public RotateTo(ICoordinateProvider target)
         {
             Target = target;
-            gObj = obj;
         }
 
         public override void Act()
         {
-           // Debug.WriteLine("RotateTo");
-            var delta = GameMath.GetRotationToTargetAngularChange(gObj.Par.Angle,
-                GameMath.GetAngleOfVector(Target.X - gObj.Par.X, Target.Y - gObj.Par.Y),
-                gObj.Par.AngularVelocity);
-            gObj.SetAngle((gObj.Par.Angle + delta + 360) % 360);
+            var delta = GameMath.GetRotationToTargetAngularChange(unit.Par.Angle,
+                GameMath.GetAngleOfVector(Target.X - unit.Par.X, Target.Y - unit.Par.Y),
+                unit.Par.AngularVelocity);
+            unit.SetAngle((unit.Par.Angle + delta + 360) % 360);
         }
     }
 }

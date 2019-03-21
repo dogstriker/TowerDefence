@@ -8,6 +8,9 @@ namespace TowerDefence
     public interface IBehavior
     {
         void Act();
-        string Name { get; set; }
+        string Name { get; }
+        void SetUnit(UGameObjectBase g, string behaviorName);
+        void Init(params object[] par);
+        void RemoveNested();
     }
 }

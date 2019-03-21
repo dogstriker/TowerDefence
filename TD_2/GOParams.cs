@@ -4,6 +4,7 @@ namespace TowerDefence
 {
     public class GOParams : ICoordinateProvider
     {
+        public bool IsFriendly { get; set; }
         public int HP { get; set; }
         public int Attack { get; set; }
         public int Defense { get; set; }
@@ -41,6 +42,8 @@ namespace TowerDefence
             Vx = velocity * Math.Cos(GameMath.DegreesToRad(angle));
             Vy = velocity * Math.Sin(GameMath.DegreesToRad(angle));
         }
+
+        public string debug;
     }
 
 
