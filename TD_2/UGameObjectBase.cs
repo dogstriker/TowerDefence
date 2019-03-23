@@ -9,7 +9,7 @@ namespace TowerDefence
 
 
         public GOParams Par { get; protected set; }
-        public int Team { get; }
+        public int Team { get; protected set; }
 
 
 

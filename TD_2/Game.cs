@@ -42,6 +42,31 @@ namespace TowerDefence
             Base.SetContainerSize(100, 100);
             friendly.Add(Base);
         }
+        void AddTank(string[] picList, GOParams[] par)
+        {
+            UCompositeGameObject tank = new UCompositeGameObject(par[0].X, par[0].Y, picList[0]);
+            Map.ContainerSetMaxSide(tank.Container,(int)par[0].Par["maxSide"]);
+            tank.Children.Add(new UGameObjectBase(par[1].X, par[1].Y, picList[1]));
+            Map.ContainerSetMaxSide(tank.Children[0].Container, (int)par[1].Par["maxSide"]);
+        }
+        public void CreateTank(string tankName, int x, int y)
+        {
+            switch (tankName)
+            { 
+                    
+                    
+                        
+                case "allyLightTank":
+                    var p=new GOParams []{
+                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=2},
+                        new GOParams{X=x,Y=y,AngularVelocity=2,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
+                    p[0].Par.Add("maxSide", 60);
+                    p[1].Par.Add("maxSide", 60);
+                    AddTank(new string[] { "platformSand1", "towerSand3" },p);
+                       
+                    break;
+            }
+        }
 
         public void AddObject(string name, GOParams par)
         {
@@ -52,11 +77,11 @@ namespace TowerDefence
                     u = new UGameObjectBase(par.X, par.Y, "flyerRed1", 1);
                     u.SetContainerSize(40, 40);
                     u.Par.Velocity = 3;
-                    u.Par.AngularVelocity = 1;
                     u.SetAngle(-90);
+                    u.Par.AngularVelocity = 1;
                     u.AddBehavior(new ControlSimpleFlyer(), "ctrl");
-                    u.Par.ChargeLevel = 330;
-                    u.Par.ChargeReady = 330;
+                    u.Par.ChargeLevel = 1000;
+                    u.Par.ChargeReady = 1000;
                     u.Par.ChargeRate = 10;
                     u.AddBehavior(new ShootWhenAimed(Base.Par.X, Base.Par.Y), "Shoot");
                     u.AddBehavior(new Reloading(), "Reloadng");

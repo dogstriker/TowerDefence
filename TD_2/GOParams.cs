@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GameMaps;
 namespace TowerDefence
 {
@@ -15,6 +16,7 @@ namespace TowerDefence
         public int ChargeLevel { get; set; }
         public int ChargeReady { get; set; }
         private double velocity;
+        public Dictionary<string, double> Par=new Dictionary<string,double>();
         public double Velocity {
             get { return velocity; }
             set { velocity = value; UpdateXYVelocity(); }

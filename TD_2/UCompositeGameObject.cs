@@ -9,7 +9,7 @@ namespace TowerDefence
             Children = new List<UGameObjectBase>();
         }
 
-        public List<UGameObjectBase> Children { get; }
+        public List<UGameObjectBase> Children { get; protected set; }
 
         public override void Act()
         {
