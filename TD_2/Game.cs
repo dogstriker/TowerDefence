@@ -103,7 +103,18 @@ namespace TowerDefence
                 teamUnits[u.Team].Add(u);
             }
         }
-    
+        public void AddShell(string name,List<UGameObjectBase> objList,int X,int Y,int Angle)
+        {
+            switch (name)
+            { 
+                case "LightShell":
+                    UGameObjectBase obj = new UGameObjectBase(X, Y, "blast5");
+                    Map.ContainerSetMaxSide(obj.Container, 12);
+                    obj.Par.Velocity = 12;
+                    obj.AddBehavior(new MoveForward(), "MoveForward");
+                    break;
+            }
+        }
         //public void checkEnemyHits()
         //{
         //    for (int i = 0; i < enemyBullets.Count; i++)
