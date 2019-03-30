@@ -1,24 +1,27 @@
 ﻿using GameMaps;
 using System;
+using System.Collections.Generic;
 namespace TowerDefence
 {
     public class ShootWhenAimed : Behavior
     {
-        double Tx;
-        double Ty;
-        public ShootWhenAimed(double tx, double ty)
+        UGameObjectBase target;
+        string ShellName;
+        List<UGameObjectBase> G;
+        public ShootWhenAimed(UGameObjectBase obj, string shellname,List <UGameObjectBase>g)
             
         {
-            Tx = tx;
-            Ty = ty;
+            target = obj;
+            ShellName = shellname;
+            G = g;
         }
         public override void Act()
         {
             if (unit.Par.ChargeLevel >= unit.Par.ChargeReady)
             {
-                if (Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(Tx- unit.Par.X, Ty- unit.Par.Y)) <= 2)
+                if (Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(target.Par.X- unit.Par.X, target.Par.X- unit.Par.Y)) <= 2)
                 {
-                    game.AddObject("Rocket", unit.Par);
+                    game.AddShell(ShellName, G, (int)unit.Par.X, (int)unit.Par.Y,(int) unit.Par.Angle);
                     unit.Par.ChargeLevel = 0;
                 }
 

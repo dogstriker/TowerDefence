@@ -42,12 +42,14 @@ namespace TowerDefence
             Base.SetContainerSize(100, 100);
             friendly.Add(Base);
         }
-        void AddTank(string[] picList, GOParams[] par)
+        UCompositeGameObject AddTank(string[] picList, GOParams[] par)
         {
             UCompositeGameObject tank = new UCompositeGameObject(par[0].X, par[0].Y, picList[0]);
             Map.ContainerSetMaxSide(tank.Container,(int)par[0].Par["maxSide"]);
             tank.Children.Add(new UGameObjectBase(par[1].X, par[1].Y, picList[1]));
+
             Map.ContainerSetMaxSide(tank.Children[0].Container, (int)par[1].Par["maxSide"]);
+            return tank;
         }
         public void CreateTank(string tankName, int x, int y)
         {
@@ -62,9 +64,16 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=2,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
-                    AddTank(new string[] { "platformSand1", "towerSand3" },p);
-                       
+                    UCompositeGameObject tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
+                    var v = new SelectNearestByAngle(true);
+
+                       //добавить танк в списки союзников и игровых обьектов
+                       // слежение за целью и выстрел для башни
+                    tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
+                    tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
+                    tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     break;
+
             }
         }
 
@@ -83,18 +92,13 @@ namespace TowerDefence
                     u.Par.ChargeLevel = 1000;
                     u.Par.ChargeReady = 1000;
                     u.Par.ChargeRate = 10;
-                    u.AddBehavior(new ShootWhenAimed(Base.Par.X, Base.Par.Y), "Shoot");
+                    u.AddBehavior(new ShootWhenAimed(Base,"Rocket",friendly), "Shoot");
                     u.AddBehavior(new Reloading(), "Reloadng");
+                    enemies.Add(u);
                     
                     break;
-                case "Rocket":
-                    u = new UGameObjectBase(par.X, par.Y, "MissileRed1", 1);
-                    u.SetContainerSize(30, 12);
-                    u.Par.Velocity = 8;
-                    u.SetAngle(par.Angle);
-                    u.AddBehavior(new MoveForward(), "Move");
-                    u.AddBehavior(new Hit(Base), "Hit");
-                    break;
+             
+                    
             }
 
             if (u != null)
@@ -103,16 +107,34 @@ namespace TowerDefence
                 teamUnits[u.Team].Add(u);
             }
         }
-        public void AddShell(string name,List<UGameObjectBase> objList,int X,int Y,int Angle)
+        public void AddShell(string name,List<UGameObjectBase> targetList,int X,int Y,int Angle)
         {
+            UGameObjectBase obj = null;
             switch (name)
             { 
                 case "LightShell":
-                    UGameObjectBase obj = new UGameObjectBase(X, Y, "blast5");
+                     obj = new UGameObjectBase(X, Y, "blast5");
                     Map.ContainerSetMaxSide(obj.Container, 12);
                     obj.Par.Velocity = 12;
                     obj.AddBehavior(new MoveForward(), "MoveForward");
+                    obj.SetAngle(Angle);
+                    obj.AddBehavior(new hitAny(targetList),"hitAny");
+
                     break;
+                case "Rocket":
+                    obj = new UGameObjectBase(X, Y, "MissileRed1", 1);
+                    obj.SetContainerSize(30, 12);
+                    obj.Par.Velocity = 8;
+                    obj.SetAngle(Angle);
+                    obj.AddBehavior(new MoveForward(), "Move");
+                    obj.AddBehavior(new Hit(Base), "Hit");
+
+                    break;
+
+            }
+            if (obj != null)
+            {
+                GameObjectsList.Add(obj);
             }
         }
         //public void checkEnemyHits()
