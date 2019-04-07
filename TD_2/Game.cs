@@ -62,7 +62,7 @@ namespace TowerDefence
                         
                 case "allyLightTank":
                     var p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
+                        new GOParams {X=x,Y=y,Velocity=0.1,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
@@ -76,6 +76,7 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+                    tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
                     GameObjectsList.Add(tank);
                     break;
@@ -84,9 +85,12 @@ namespace TowerDefence
         }
         public void setMovementGoalByClick(int x, int y, int cx, int cy)
         {
+           
             if (ClickedObj != null)
-            { 
-            
+            {
+                ClickedObj.AddBehavior(new MoveForward(), "MoveForward");
+                ClickedObj.AddBehavior(new RotateTo(new DoubleCoordinate(x, y)), "RotateTo");
+                
             }
         }
         public void AddObject(string name, GOParams par)
