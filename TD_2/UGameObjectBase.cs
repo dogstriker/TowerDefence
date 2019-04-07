@@ -8,7 +8,7 @@ namespace TowerDefence
         private List<IBehavior> act = new List<IBehavior>();
 
 
-        public GOParams Par { get; protected set; }
+        public GOParams Par { get;  set; }
         public int Team { get; protected set; }
 
 
@@ -30,7 +30,10 @@ namespace TowerDefence
             SetCoord(x, y);
 
         }
-
+        public void Click()
+        {
+            game.ClickedObj = this;
+        }
 
         public void SetContainerSize(int Xsize, int Ysize)
         {

@@ -16,6 +16,8 @@ namespace TowerDefence
         public List<UGameObjectBase> enemies = new List<UGameObjectBase>();
         //List<UGameObjectBase> bullets = new List<UGameObjectBase>();
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
+        public UGameObjectBase ClickedObj;
+
 
         public UGameObjectBase Base;
         public Game(int teams)
@@ -60,23 +62,33 @@ namespace TowerDefence
                         
                 case "allyLightTank":
                     var p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=2},
-                        new GOParams{X=x,Y=y,AngularVelocity=2,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
+                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
                     UCompositeGameObject tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
                     var v = new SelectNearestByAngle(true);
-
+                    tank.Par = p[0];
+                    tank.Children[0].Par = p[1];
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
+                    tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+                    Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    GameObjectsList.Add(tank);
                     break;
 
             }
         }
-
+        public void setMovementGoalByClick(int x, int y, int cx, int cy)
+        {
+            if (ClickedObj != null)
+            { 
+            
+            }
+        }
         public void AddObject(string name, GOParams par)
         {
             UGameObjectBase u = null;
