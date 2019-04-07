@@ -62,7 +62,7 @@ namespace TowerDefence
                         
                 case "allyLightTank":
                     var p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=0.1,AngularVelocity=1},
+                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
@@ -88,8 +88,13 @@ namespace TowerDefence
            
             if (ClickedObj != null)
             {
+                DoubleCoordinate c = new DoubleCoordinate(x, y);
+                ClickedObj.RemoveBehavior("MoveForward");
+                ClickedObj.RemoveBehavior("RotateTo");
+                ClickedObj.RemoveBehavior("StopAtPoint");
                 ClickedObj.AddBehavior(new MoveForward(), "MoveForward");
-                ClickedObj.AddBehavior(new RotateTo(new DoubleCoordinate(x, y)), "RotateTo");
+                ClickedObj.AddBehavior(new RotateTo(c), "RotateTo");
+                ClickedObj.AddBehavior(new StopAtPoint(c),"StopAtPoint");
                 
             }
         }
@@ -135,6 +140,7 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
+                    
 
                     break;
                 case "Rocket":

@@ -22,7 +22,7 @@ namespace TowerDefence
                 if (game.Map.CollisionContainers(unit.Container, targets[i].Container))
                 {
                     unit.RemoveBehavior("Hit");
-                    unit.RemoveBehavior("Move");
+                    unit.RemoveBehavior("MoveForward");
                     unit.SetContainerSize(40, 40);
                     game.Map.AnimationStart(unit.Container, "explosion", 1, remove);
 

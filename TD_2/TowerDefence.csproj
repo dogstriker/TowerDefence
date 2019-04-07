@@ -75,10 +75,11 @@
     <Compile Include="Behaviors\RotateTo.cs" />
     <Compile Include="Behaviors\SelectNearestByAngle.cs" />
     <Compile Include="Behaviors\ShootWhenAimed.cs" />
+    <Compile Include="Behaviors\StopAtPoint.cs" />
     <Compile Include="Behaviors\SynchronizeCoords.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GOParams.cs" />
-    <Compile Include="hitAny.cs" />
+    <Compile Include="Behaviors\hitAny.cs" />
     <Compile Include="IActor.cs" />
     <Compile Include="IAngleProvider.cs" />
     <Compile Include="UCompositeGameObject.cs" />
