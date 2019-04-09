@@ -37,11 +37,11 @@ namespace TowerDefence
             Behavior.game = game;
             InitializeComponent();
             Lay = LayoutsFactory.GetLayout(LayoutType.Vertical_1, this.Content);
-            MapInfo = new CellMapInfo(20, 16, 30, 5);
+            MapInfo = new CellMapInfo(50, 31, 30, 5);
             game.Map = MapCreator.GetUniversalMap(this, MapInfo);
             game.Map.Mouse.SetMouseSingleLeftClickHandler(game.setMovementGoalByClick);
             Lay.Attach(game.Map, 0);
-            game.Map.DrawGrid();
+            //game.Map.DrawGrid();
             unitsPanel = new InventoryPanel(game.Map.Library, game.Map.CellSize);
             Lay.Attach(unitsPanel, 1);
             unitsPanel.SetBackground(Brushes.Wheat);
@@ -54,6 +54,7 @@ namespace TowerDefence
 
             game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("allyLightTank", 20, 20);
+            game.CreateTank("allyMediumTank", 100, 100);
             
             
         }

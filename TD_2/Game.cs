@@ -55,19 +55,22 @@ namespace TowerDefence
         }
         public void CreateTank(string tankName, int x, int y)
         {
+            UCompositeGameObject tank;
+            GOParams[] p;
+            SelectNearestByAngle v;
             switch (tankName)
             { 
                     
                     
                         
                 case "allyLightTank":
-                    var p=new GOParams []{
+                        p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
-                    UCompositeGameObject tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
-                    var v = new SelectNearestByAngle(true);
+                    tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
+                    v = new SelectNearestByAngle(true);
                     tank.Par = p[0];
                     tank.Children[0].Par = p[1];
                        //добавить танк в списки союзников и игровых обьектов
@@ -80,6 +83,27 @@ namespace TowerDefence
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
                     GameObjectsList.Add(tank);
                     break;
+                case "allyMediumTank":
+                        p=new GOParams []{
+                        new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
+                    p[0].Par.Add("maxSide", 80);
+                    p[1].Par.Add("maxSide", 80);
+                    tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
+                    v = new SelectNearestByAngle(true);
+                    tank.Par = p[0];
+                    tank.Children[0].Par = p[1];
+                       //добавить танк в списки союзников и игровых обьектов
+                       // слежение за целью и выстрел для башни
+                    tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
+                    tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
+                    tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
+                    tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+                    tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
+                    Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    GameObjectsList.Add(tank);
+                    break;
+
 
             }
         }
@@ -94,7 +118,9 @@ namespace TowerDefence
                 ClickedObj.RemoveBehavior("StopAtPoint");
                 ClickedObj.AddBehavior(new MoveForward(), "MoveForward");
                 ClickedObj.AddBehavior(new RotateTo(c), "RotateTo");
-                ClickedObj.AddBehavior(new StopAtPoint(c),"StopAtPoint");
+                var b = new StopAtPoint(c);
+                ClickedObj.AddBehavior(b,"StopAtPoint");
+                b.SetMinimalRange();
                 
             }
         }
@@ -118,7 +144,7 @@ namespace TowerDefence
                     enemies.Add(u);
                     
                     break;
-             
+                
                     
             }
 
