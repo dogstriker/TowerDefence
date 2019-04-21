@@ -36,7 +36,7 @@ namespace TowerDefence
                 if (d < lastDistance) lastDistance = d;
                 else
                     countDist++;
-                Debug.WriteLine(countDist);
+                //Debug.WriteLine(countDist);
                 if(countDist > 200)
                 {
                     NextPoint();

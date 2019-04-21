@@ -66,11 +66,13 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Behaviors\Behavior.cs" />
+    <Compile Include="Behaviors\BehaviorContainer.cs" />
     <Compile Include="Behaviors\ControlSimpleFlyer.cs" />
     <Compile Include="Behaviors\Hit.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Behaviors\MoveForward.cs" />
     <Compile Include="Behaviors\MoveTo.cs" />
+    <Compile Include="Behaviors\Patrol.cs" />
     <Compile Include="Behaviors\Reloading.cs" />
     <Compile Include="Behaviors\RotateTo.cs" />
     <Compile Include="Behaviors\SelectNearestByAngle.cs" />
