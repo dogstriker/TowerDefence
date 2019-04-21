@@ -81,6 +81,7 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
                 case "allyMediumTank":
@@ -101,7 +102,32 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    friendly.Add(tank);
                     GameObjectsList.Add(tank);
+                    break;
+                case "enemyLightTank":
+                     p=new GOParams []{
+                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
+                    p[0].Par.Add("maxSide", 60);
+                    p[1].Par.Add("maxSide", 60);
+                    tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
+                    v = new SelectNearestByAngle(true);
+                    tank.Par.CopyPar (p[0]);
+                    tank.Children[0].Par.CopyPar ( p[1]);
+                       //добавить танк в списки союзников и игровых обьектов
+                       // слежение за целью и выстрел для башни
+              //      tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
+                   // tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
+                   // tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",friendly), "ShootWhenAimed");
+               //     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+                    //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
+                    //Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    tank.AddBehavior(new Patrol(5,true, new DoubleCoordinate(1000,200),
+                        new DoubleCoordinate(500,200),new DoubleCoordinate(500,1000)),"Patrol");
+                    enemies.Add(tank);
+                    GameObjectsList.Add(tank);
+                    
                     break;
 
 

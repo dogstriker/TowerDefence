@@ -52,10 +52,11 @@ namespace TowerDefence
             game.Map.Mouse.SetMouseSingleLeftClickHandler(PlaceTank);
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
 
-            game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
+           // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
+            game.CreateTank("enemyLightTank", 1000, 500);
             game.CreateTank("allyLightTank", 20, 20);
             game.CreateTank("allyMediumTank", 100, 100);
-            
+           
             
         }
         void AddPictures()

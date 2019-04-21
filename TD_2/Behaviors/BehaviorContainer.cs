@@ -5,7 +5,7 @@ namespace TowerDefence
 {
     public class BehaviorContainer : Behavior
     {
-        public Dictionary<string, IBehavior> Behaviors { get; }
+        public Dictionary<string, IBehavior> Behaviors { get; protected set; }
 
         public BehaviorContainer(/*UGameObjectBase _g, string bName*/)// : base(_g, bName)
         {
