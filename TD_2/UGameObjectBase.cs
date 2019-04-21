@@ -10,7 +10,7 @@ namespace TowerDefence
         private List<IBehavior> act = new List<IBehavior>();
 
         public GOParams Par { get; protected set; }
-        public int Team { get; }
+        public int Team { get; protected set; }
 
         static int count = 0;
 

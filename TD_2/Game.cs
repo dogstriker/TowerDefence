@@ -48,7 +48,7 @@ namespace TowerDefence
         {
             UCompositeGameObject tank = new UCompositeGameObject(par[0].X, par[0].Y, picList[0]);
             Map.ContainerSetMaxSide(tank.Container,(int)par[0].Par["maxSide"]);
-            tank.Children.Add(new UGameObjectBase(par[1].X, par[1].Y, picList[1]));
+            tank.AddChild(0, 0, 0, picList[1]);
 
             Map.ContainerSetMaxSide(tank.Children[0].Container, (int)par[1].Par["maxSide"]);
             return tank;
@@ -71,15 +71,15 @@ namespace TowerDefence
                     p[1].Par.Add("maxSide", 60);
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
                     v = new SelectNearestByAngle(true);
-                    tank.Par = p[0];
-                    tank.Children[0].Par = p[1];
+                    tank.Par.CopyPar (p[0]);
+                    tank.Children[0].Par.CopyPar ( p[1]);
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
-                    tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
+                    //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
                     GameObjectsList.Add(tank);
                     break;
@@ -91,15 +91,15 @@ namespace TowerDefence
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
                     v = new SelectNearestByAngle(true);
-                    tank.Par = p[0];
-                    tank.Children[0].Par = p[1];
+                    tank.Par.CopyPar ( p[0]);
+                    tank.Children[0].Par.CopyPar ( p[1]);
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v.currTarget.Par), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
-                    tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
+                    //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
                     GameObjectsList.Add(tank);
                     break;
