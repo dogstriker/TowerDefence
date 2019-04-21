@@ -2,20 +2,20 @@
 using GameMaps;
 namespace TowerDefence
 {
+
+
     public class UGameObjectBase : IActor
     {
         private Dictionary<string, IBehavior> actions = new Dictionary<string, IBehavior>();
         private List<IBehavior> act = new List<IBehavior>();
 
-
-        public GOParams Par { get;  set; }
-        public int Team { get; protected set; }
-
-
+        public GOParams Par { get; protected set; }
+        public int Team { get; }
 
         static int count = 0;
 
         public string Container { get; protected set; }
+
 
         static public Game game;
 
@@ -27,7 +27,10 @@ namespace TowerDefence
             Container = "u" + (++count).ToString();
 
             game.Map.Library.AddContainer(Container, PictureName, ContainerType.AutosizedSingleImage);
-            SetCoord(x, y);
+            //SetCoord(x, y);
+            Par.X = x;
+            Par.Y = y;
+            game.Map.ContainerSetCoordinate(Container, x, y);
 
         }
         public void Click()
@@ -40,13 +43,13 @@ namespace TowerDefence
             game.Map.ContainerSetSize(Container, Xsize, Ysize);
         }
 
-        public void SetAngle(double angle)
+        public virtual void SetAngle(double angle)
         {
             Par.Angle = angle;
             game.Map.ContainerSetAngle(Container, (int)Par.Angle);
         }
- 
-        public void SetCoord(double x, double y)
+
+        public virtual void SetCoord(double x, double y)
         {
             Par.X = x;
             Par.Y = y;
@@ -84,13 +87,13 @@ namespace TowerDefence
 
         public virtual void Act()
         {
-            for(int i = 0; i < act.Count; i++)
+            for (int i = 0; i < act.Count; i++)
             {
                 act[i].Act();
             }
         }
 
-    }
 
+    }
 
 }

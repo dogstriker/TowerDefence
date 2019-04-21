@@ -82,8 +82,12 @@
     <Compile Include="Behaviors\hitAny.cs" />
     <Compile Include="IActor.cs" />
     <Compile Include="IAngleProvider.cs" />
+    <Compile Include="IPositionObservable.cs" />
+    <Compile Include="IPositionObserver.cs" />
+    <Compile Include="IPositionProvider.cs" />
     <Compile Include="UCompositeGameObject.cs" />
     <Compile Include="UGameObjectBase.cs" />
+    <Compile Include="UGameObjectChild.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
