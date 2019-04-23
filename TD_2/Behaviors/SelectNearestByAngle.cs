@@ -16,31 +16,33 @@ namespace TowerDefence
         //    SetTarget();
         //}
 
-        public SelectNearestByAngle(bool isPlayer)
+        public SelectNearestByAngle(List<UGameObjectBase> targetsList)
         {
-            if (isPlayer) targets = game.enemies;
-            else targets = game.friendly;
+            targets = targetsList;
         }
 
         public override void Act()
         {
-            var d = GameMath.CompareAngles(unit.Par.Angle, currTarget.Par.Angle);
-            if (d > lastDelta)
+            if (currTarget != null)
             {
-                deltaCounter++;
-            }
-            else
-            {
-                deltaCounter = 0;
-            }
-            if (deltaCounter > 30)
-            {
-                lastDelta = 1000;
-                SetTarget();
-            }
-            else
-            {
-                lastDelta = d;
+                var d = GameMath.CompareAngles(unit.Par.Angle, currTarget.Par.Angle);
+                if (d > lastDelta)
+                {
+                    deltaCounter++;
+                }
+                else
+                {
+                    deltaCounter = 0;
+                }
+                if (deltaCounter > 30)
+                {
+                    lastDelta = 1000;
+                    SetTarget();
+                }
+                else
+                {
+                    lastDelta = d;
+                }
             }
         }
 

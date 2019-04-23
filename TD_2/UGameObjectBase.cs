@@ -93,7 +93,10 @@ namespace TowerDefence
             }
         }
 
-
+        public void RemoveAllBehaviors()
+        {
+            actions.Clear();
+        }
     }
 
 }

@@ -56,8 +56,8 @@ namespace TowerDefence
             game.CreateTank("enemyLightTank", 1000, 500);
             game.CreateTank("allyLightTank", 20, 20);
             game.CreateTank("allyMediumTank", 100, 100);
-           
-            
+
+
         }
         void AddPictures()
         {

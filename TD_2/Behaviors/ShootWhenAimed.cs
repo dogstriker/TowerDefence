@@ -8,18 +8,19 @@ namespace TowerDefence
         UGameObjectBase target;
         string ShellName;
         List<UGameObjectBase> G;
-        public ShootWhenAimed(UGameObjectBase obj, string shellname,List <UGameObjectBase>g)
-            
+        double Precision;
+        public ShootWhenAimed(UGameObjectBase obj, string shellname,List <UGameObjectBase>g, double precision = 3)
         {
             target = obj;
             ShellName = shellname;
             G = g;
+            Precision = precision;
         }
         public override void Act()
         {
             if (unit.Par.ChargeLevel >= unit.Par.ChargeReady)
             {
-                if (Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(target.Par.X- unit.Par.X, target.Par.X- unit.Par.Y)) <= 2)
+                if (Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(target.Par.X- unit.Par.X, target.Par.Y- unit.Par.Y)) <= Precision)
                 {
                     game.AddShell(ShellName, G, (int)unit.Par.X, (int)unit.Par.Y,(int) unit.Par.Angle);
                     unit.Par.ChargeLevel = 0;
