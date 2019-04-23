@@ -23,8 +23,9 @@ namespace TowerDefence
                 {
                     unit.RemoveBehavior(Name);
                     unit.RemoveBehavior("MoveForward");
-                    unit.SetContainerSize(40, 40);
+                    game.Map.ContainerSetFrame(unit.Container, "exp9");
                     game.Map.AnimationStart(unit.Container, "explosion", 1, remove);
+                    unit.SetContainerSize(40, 40);
 
                 }
             }

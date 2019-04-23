@@ -18,6 +18,7 @@ namespace TowerDefence
             {
                 unit.RemoveBehavior("MoveForward");
                 unit.RemoveBehavior("RotateTo");
+                unit.RemoveBehavior("StopAtPoint");
             }
             currentRange = (unit.Par.X - i.X) * (unit.Par.X - i.X) + (unit.Par.Y - i.Y) * (unit.Par.Y - i.Y);
             if (minimalRange > currentRange)
@@ -32,6 +33,7 @@ namespace TowerDefence
             {
                 unit.RemoveBehavior("MoveForward");
                 unit.RemoveBehavior("RotateTo");
+                unit.RemoveBehavior("StopAtPoint");
             }
         }
         public StopAtPoint(ICoordinateProvider c)

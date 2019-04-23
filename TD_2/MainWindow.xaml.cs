@@ -47,15 +47,16 @@ namespace TowerDefence
             unitsPanel.SetBackground(Brushes.Wheat);
             game.Map.SetMapBackground(Brushes.Black);
             AddPictures();
-            unitsPanel.AddItem("light tank", "tank1", "light tank");
+            unitsPanel.AddItem("allyLightTank", "tank1", "Light Tank");
             unitsPanel.SetMouseClickHandler(CheckInventoryClick);
-            game.Map.Mouse.SetMouseSingleLeftClickHandler(PlaceTank);
+            unitsPanel.AddItem("allyMediumTank", "platformSand3", "Medium Tank");
+
+
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
-            game.CreateTank("allyLightTank", 20, 20);
-            game.CreateTank("allyMediumTank", 100, 100);
+         
 
 
         }
@@ -93,27 +94,22 @@ namespace TowerDefence
         void CheckInventoryClick(string s)
         {
             switch (s)
-            { 
-                case "light tank":
-                    unitsPanel.SetItemBackground("light tank",Brushes.LightGreen);
-                    tankName = "light tank";
+            {
+                case "allyLightTank":
+                    unitsPanel.SetItemBackground("allyLightTank", Brushes.LightGreen);
+                    
+                    game.CreateTank("allyLightTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                    break;
+                case "allyMediumTank":
+                    unitsPanel.SetItemBackground("allyMediumTank", Brushes.LightGreen);
+                    
+                    game.CreateTank("allyMediumTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
                     break;
             }
 
         }
 
-        void PlaceTank(int x1, int y1, int x2, int y2)
-        {
-            if (!(tankName == ""))
-            {
-                switch (tankName)
-                {
-                    case "light tank":
-                        //game.AddTank(x1, y1, new string[] { "platformSand1", "towerSand3" }, 2);
-                        break;
-                }
-            }
-        }
+       
     }
     
 } 

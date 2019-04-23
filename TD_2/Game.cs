@@ -66,7 +66,7 @@ namespace TowerDefence
                 case "allyLightTank":
                         p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=40}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
@@ -81,13 +81,14 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, tank.Click);
                     friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
                 case "allyMediumTank":
                         p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=30}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 80);
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
@@ -102,15 +103,16 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, tank.Click);
                     friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
                 case "enemyLightTank":
                      p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=50}};
+                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
-                    p[1].Par.Add("maxSide", 60);
+                    p[1].Par.Add("maxSide", 90);
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
                     tank.Par.CopyPar (p[0]);
