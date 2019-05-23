@@ -11,6 +11,7 @@ namespace TowerDefence
         double Precision;
         public ShootWhenAimed(UGameObjectBase obj, string shellname,List <UGameObjectBase>g, double precision = 3)
         {
+            
             target = obj;
             ShellName = shellname;
             G = g;
@@ -20,7 +21,7 @@ namespace TowerDefence
         {
             if (unit.Par.ChargeLevel >= unit.Par.ChargeReady)
             {
-                if (Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(target.Par.X- unit.Par.X, target.Par.Y- unit.Par.Y)) <= Precision)
+                if (target!=null&&Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(target.Par.X- unit.Par.X, target.Par.Y- unit.Par.Y)) <= Precision)
                 {
                     game.AddShell(ShellName, G, (int)unit.Par.X, (int)unit.Par.Y,(int) unit.Par.Angle);
                     unit.Par.ChargeLevel = 0;

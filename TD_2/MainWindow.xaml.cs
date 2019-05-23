@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GameMaps;
+using GameMaps.Layouts;
 namespace TowerDefence
 {
     /// <summary>
@@ -36,7 +37,7 @@ namespace TowerDefence
             UGameObjectBase.game = game;
             Behavior.game = game;
             InitializeComponent();
-            Lay = LayoutsFactory.GetLayout(LayoutType.Vertical_1, this.Content);
+            Lay = LayoutsFactory.GetLayout(LayoutType.Vertical, this.Content);
             MapInfo = new CellMapInfo(50, 31, 30, 5);
             game.Map = MapCreator.GetUniversalMap(this, MapInfo);
             game.Map.Mouse.SetMouseSingleLeftClickHandler(game.setMovementGoalByClick);
@@ -56,7 +57,7 @@ namespace TowerDefence
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
-         
+            game.CreateTank("Baneblade",1300, 500);
 
 
         }

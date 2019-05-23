@@ -17,6 +17,7 @@ namespace TowerDefence
         //List<UGameObjectBase> bullets = new List<UGameObjectBase>();
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
         public UGameObjectBase ClickedObj;
+        public UGameObjectBase RightClickedObj;
 
 
         public UGameObjectBase Base;
@@ -53,6 +54,24 @@ namespace TowerDefence
             Map.ContainerSetMaxSide(tank.Children[0].Container, (int)par[1].Par["maxSide"]);
             return tank;
         }
+        UCompositeGameObject AddBaneBlade(string[] picList, GOParams[] par)
+        {
+            UCompositeGameObject tank = new UCompositeGameObject(par[0].X, par[0].Y, picList[0]);
+            Map.ContainerSetMaxSide(tank.Container, (int)par[0].Par["maxSide"]);
+           
+            tank.AddChild(50, 40, 0, picList[1]);
+            tank.AddChild(50, -40, 0, picList[1]);
+            tank.AddChild(-50, 40, 0, picList[1]);
+            tank.AddChild(-50, -40, 0, picList[1]);
+            tank.AddChild(0, 0, 0, picList[2]);
+            for (int i = 0; i < 5; i++)
+            {
+                Map.ContainerSetMaxSide(tank.Children[i].Container, (int)par[i+1].Par["maxSide"]);
+            }
+
+            
+            return tank;
+        }
         public void CreateTank(string tankName, int x, int y)
         {
             UCompositeGameObject tank;
@@ -62,7 +81,7 @@ namespace TowerDefence
             { 
                     
                     
-                        
+                    
                 case "allyLightTank":
                         p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
@@ -80,8 +99,8 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
-                    Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
-                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Container,ClickType.Left, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Left, tank.Click);
                     friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
@@ -102,11 +121,44 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
-                    Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
-                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Left, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Left, tank.Click);
                     friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
+                case "Baneblade":
+                    {
+                        p = new GOParams[]{
+                        new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
+                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=2}};
+                        p[0].Par.Add("maxSide", 200);
+                        p[1].Par.Add("maxSide", 120);
+                        p[2].Par.Add("maxSide", 120);
+                        p[3].Par.Add("maxSide", 120);
+                        p[4].Par.Add("maxSide", 120);
+                        p[5].Par.Add("maxSide", 200);
+                        tank = AddBaneBlade(new string[] { "platformSand6", "towerSand4", "towerSand5" }, p);
+                        tank.Par.CopyPar(p[0]);
+                        for (int i = 0; i < 5; i++)
+                        {
+                            v = new SelectNearestByAngle(enemies);
+                            tank.Children[i].Par.CopyPar(p[i+1]);
+                            tank.Children[i].AddBehavior(v, "SelectNearestByAngle");
+                            tank.Children[i].AddBehavior(new RotateTo(v.currTarget), "RotateTo");
+                            tank.Children[i].AddBehavior(new ShootWhenAimed(v.currTarget, "LightShell", enemies), "ShootWhenAimed");
+                            tank.Children[i].AddBehavior(new Reloading(), "Reloading");
+                            Map.ContainerSetLeftClickHandler(tank.Children[i].Container, ClickType.Left, tank.Click);
+                        }
+                        Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Left, tank.Click);
+                        friendly.Add(tank);
+                        GameObjectsList.Add(tank);
+                        break;
+                    }
+
                 case "enemyLightTank":
                      p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
@@ -124,7 +176,8 @@ namespace TowerDefence
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v.currTarget, "LightShell", friendly), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
-                    Map.ContainerSetLeftClickHandler(tank.Container, tank.Click);
+                    Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
+                    Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Right, tank.RightClick);
                     tank.AddBehavior(new Patrol(5,true, new DoubleCoordinate(800,100),
                         new DoubleCoordinate(100,200),new DoubleCoordinate(500,500)),"Patrol");
                     enemies.Add(tank);

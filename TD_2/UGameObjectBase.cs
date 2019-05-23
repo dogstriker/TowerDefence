@@ -15,7 +15,7 @@ namespace TowerDefence
         static int count = 0;
 
         public string Container { get; protected set; }
-
+        
 
         static public Game game;
 
@@ -31,11 +31,27 @@ namespace TowerDefence
             Par.X = x;
             Par.Y = y;
             game.Map.ContainerSetCoordinate(Container, x, y);
+            
 
+        }
+        public void RightClick()
+        {
+            if (game.ClickedObj != null)
+            {
+
+                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("SelectNearestByAngle");
+                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("RotateTo");
+                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("ShootWhenAimed");
+                ((UCompositeGameObject)game.ClickedObj).Children[0].AddBehavior(new RotateTo(this.Par), "RotateTo");
+                ((UCompositeGameObject)game.ClickedObj).Children[0].AddBehavior(new ShootWhenAimed(this, "LightShell", game.enemies), "ShootWhenAimed");
+
+            }
+            
         }
         public void Click()
         {
             game.ClickedObj = this;
+
         }
 
         public void SetContainerSize(int Xsize, int Ysize)
