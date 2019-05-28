@@ -58,7 +58,7 @@ namespace TowerDefence
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
             game.CreateTank("Baneblade",100, 200);
-
+            game.Map.Library.AddPicture("platformRedDestroyed3", "platformRedDestroyed3.png");
 
         }
         void AddPictures()

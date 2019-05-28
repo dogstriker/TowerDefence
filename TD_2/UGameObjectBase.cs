@@ -15,7 +15,7 @@ namespace TowerDefence
         static int count = 0;
 
         public string Container { get; protected set; }
-        
+        public string destroyedPictureName;
 
         static public Game game;
 
@@ -58,7 +58,10 @@ namespace TowerDefence
         {
             game.Map.ContainerSetSize(Container, Xsize, Ysize);
         }
-
+        public void Destroyed()
+        {
+            game.Map.ContainerSetFrame(Container, destroyedPictureName);
+        }
         public virtual void SetAngle(double angle)
         {
             Par.Angle = angle;

@@ -23,10 +23,22 @@ namespace TowerDefence
                 {
                     unit.RemoveBehavior(Name);
                     unit.RemoveBehavior("MoveForward");
-                    game.Map.ContainerSetFrame(unit.Container, "exp9");
-                    game.Map.AnimationStart(unit.Container, "explosion", 1, remove);
-                    unit.SetContainerSize(40, 40);
+                   
+                    targets[i].Par.HP -= unit.Par.DamageMax;
+                    if (targets[i].Par.HP > 0)
+                    {
+                        game.Map.ContainerSetFrame(unit.Container, "exp9");
+                        game.Map.AnimationStart(unit.Container, "explosion", 1, remove);
+                        unit.SetContainerSize(40, 40);
 
+
+                    }
+                    else 
+                    {
+                        game.Map.ContainerSetFrame(targets[i].Container, "exp9");
+                        game.Map.AnimationStart(targets[i].Container, "explosion", 1);
+                        unit.removeObject();
+                    }
                 }
             }
         }

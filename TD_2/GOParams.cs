@@ -71,6 +71,7 @@ namespace TowerDefence
             ChargeLevel = p.ChargeLevel;
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
+            HP = p.HP;
             X = p.X;
             Y = p.Y;
             //foreach (var k in p.Par.Keys)
@@ -91,6 +92,8 @@ namespace TowerDefence
             ChargeLevel = p.ChargeLevel;
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
+            HP = p.HP;
+
             //foreach (var k in p.Par.Keys)
             //{
             //    if (Par.ContainsKey(k)) Par[k] = p.Par[k];

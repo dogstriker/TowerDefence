@@ -135,6 +135,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=16},
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=14},
                         new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
+                        p[0].HP = 10000;
                         p[0].Par.Add("maxSide", 200);
                         p[1].Par.Add("maxSide", 120);
                         p[2].Par.Add("maxSide", 120);
@@ -161,10 +162,11 @@ namespace TowerDefence
 
                 case "enemyLightTank":
                      p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=3,AngularVelocity=3},
+                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
+                    p[0].HP = 100;
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
                     tank.Par.CopyPar (p[0]);
@@ -247,7 +249,7 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
-                    
+                    obj.Par.DamageMax = 10;
 
                     break;
                 case "Rocket":
