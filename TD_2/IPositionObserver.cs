@@ -2,7 +2,8 @@
 {
     public interface IPositionObserver
     {
-        void UpdatePosition(IPositionProvider pos);
+        void UpdatePosition();
+        //void UpdatePosition(IPositionProvider pos);
     }
 
 }

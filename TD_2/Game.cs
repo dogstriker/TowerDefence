@@ -130,11 +130,11 @@ namespace TowerDefence
                     {
                         p = new GOParams[]{
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3},
-                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=2}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=25},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=21},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=16},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=14},
+                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
                         p[0].Par.Add("maxSide", 200);
                         p[1].Par.Add("maxSide", 120);
                         p[2].Par.Add("maxSide", 120);
@@ -146,7 +146,7 @@ namespace TowerDefence
                         for (int i = 0; i < 5; i++)
                         {
                             v = new SelectNearestByAngle(enemies);
-                            tank.Children[i].Par.CopyPar(p[i+1]);
+                            tank.Children[i].Par.CopyParWithoutPosition(p[i+1]);
                             tank.Children[i].AddBehavior(v, "SelectNearestByAngle");
                             tank.Children[i].AddBehavior(new RotateTo(v.currTarget), "RotateTo");
                             tank.Children[i].AddBehavior(new ShootWhenAimed(v.currTarget, "LightShell", enemies), "ShootWhenAimed");
@@ -161,7 +161,7 @@ namespace TowerDefence
 
                 case "enemyLightTank":
                      p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
+                        new GOParams {X=x,Y=y,Velocity=3,AngularVelocity=3},
                         new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
@@ -178,8 +178,8 @@ namespace TowerDefence
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
                     Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Right, tank.RightClick);
-                    tank.AddBehavior(new Patrol(5,true, new DoubleCoordinate(800,100),
-                        new DoubleCoordinate(100,200),new DoubleCoordinate(500,500)),"Patrol");
+                    tank.AddBehavior(new Patrol(5, true, new DoubleCoordinate(800, 100),
+                        new DoubleCoordinate(100, 200), new DoubleCoordinate(500, 500)), "Patrol");
                     enemies.Add(tank);
                     GameObjectsList.Add(tank);
                     

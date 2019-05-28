@@ -35,14 +35,19 @@ namespace TowerDefence
             {
                 var delta = GameMath.GetRotationToTargetAngularChange(unit.Par.Angle,
                     GameMath.GetAngleOfVector(Target.Par.X - unit.Par.X, Target.Par.Y - unit.Par.Y),
-                    unit.Par.AngularVelocity);
+                    unit.Par.AngularVelocity, 2);
+                //Debug.WriteLine(string.Format("{0} A={1}, x={6}, y={7}, tx={2}, ty={3}, AT={4}, d={5}", unit.Container, unit.Par.Angle, Target.Par.X, Target.Par.Y,
+                // GameMath.GetAngleOfVector(Target.Par.X - unit.Par.X, Target.Par.Y - unit.Par.Y), delta, unit.Par.X, unit.Par.Y));
                 unit.SetAngle((unit.Par.Angle + delta + 360) % 360);
+            
             }
             else if(targetCoords != null)
             {
                 var delta = GameMath.GetRotationToTargetAngularChange(unit.Par.Angle,
                     GameMath.GetAngleOfVector(targetCoords.X - unit.Par.X, targetCoords.Y - unit.Par.Y),
-                    unit.Par.AngularVelocity);
+                    unit.Par.AngularVelocity, 2);
+                //Debug.WriteLine(string.Format("{0} A={1}, x={6}, y={7}, tx={2}, ty={3}, AT={4}, d={5}", unit.Container, unit.Par.Angle, targetCoords.X, targetCoords.Y,
+                //GameMath.GetAngleOfVector(targetCoords.X - unit.Par.X, targetCoords.Y - unit.Par.Y), delta, unit.Par.X, unit.Par.Y));
                 unit.SetAngle((unit.Par.Angle + delta + 360) % 360);
             }
 

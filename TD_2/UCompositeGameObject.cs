@@ -22,12 +22,12 @@ namespace TowerDefence
 
         public void AddChild(double x, double y, double angle, string PictureName)
         {
-            var c = new UGameObjectChild(Par.X + x, Par.Y + y, angle, Par.Angle, PictureName);
+            var c = new UGameObjectChild(Par, angle, Par.Angle, PictureName);
             //c.Par.Par["dx"] = x;
             //c.Par.Par["dy"] = y;
             c.SetCoord(x, y);
             RegisterObserver(c);
-            c.UpdatePosition(Par);
+            c.UpdatePosition(/*Par*/);
             Children.Add(c);
 
         }
@@ -66,7 +66,7 @@ namespace TowerDefence
         {
             for (int i = 0; i < positionObservers.Count; i++)
             {
-                positionObservers[i].UpdatePosition(Par);
+                positionObservers[i].UpdatePosition(/*Par*/);
             }
         }
 

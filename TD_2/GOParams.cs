@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using GameMaps;
 namespace TowerDefence
 {
@@ -25,8 +26,14 @@ namespace TowerDefence
         public double Vx { get; private set; }
         public double Vy { get; private set; }
 
-        public double X { get; set; }
-        public double Y { get; set; }
+        double _x;
+        double _y;
+        public double X {
+            get { return _x; }
+            set { _x = value; /*Debug.WriteLine("X changed to " + value.ToString());*/ } }
+        public double Y {
+            get { return _y; }
+            set { _y = value; /*Debug.WriteLine("Y changed to " + value.ToString());*/ } }
 
         private double angle;
         public double Angle
@@ -49,13 +56,7 @@ namespace TowerDefence
 
         public GOParams()
         {
-            Par = new Dictionary<string, double>
-            {
-                { "dx", 0 },
-                { "dy", 0 },
-                { "__dL", 0},
-                {"__dA", 0 }
-            };
+
         }
 
         public void CopyPar(GOParams p)
@@ -78,7 +79,31 @@ namespace TowerDefence
             //    else Par.Add(k, p.Par[k]);
             //}
         }
+
+        public void CopyParWithoutPosition(GOParams p)
+        {
+            AngularVelocity = p.AngularVelocity;
+            Attack = p.Attack;
+            Defense = p.Defense;
+            DamageMax = p.DamageMax;
+            DamageMin = p.DamageMin;
+            ChargeRate = p.ChargeRate;
+            ChargeLevel = p.ChargeLevel;
+            ChargeReady = p.ChargeReady;
+            Velocity = p.Velocity;
+            //foreach (var k in p.Par.Keys)
+            //{
+            //    if (Par.ContainsKey(k)) Par[k] = p.Par[k];
+            //    else Par.Add(k, p.Par[k]);
+            //}
+        }
+
     }
 
+
+    public class GOParamsRelative : GOParams
+    {
+        public new double X { get; set; }
+    }
 
 }
