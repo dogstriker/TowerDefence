@@ -36,8 +36,23 @@ namespace TowerDefence
                     else 
                     {
                         game.Map.ContainerSetFrame(targets[i].Container, "exp9");
-                        game.Map.AnimationStart(targets[i].Container, "explosion", 1);
+                        game.Map.AnimationStart(targets[i].Container, "explosion", 1,targets[i].Destroyed);
                         unit.removeObject();
+                        targets[i].RemoveAllBehaviors();
+                        UCompositeGameObject c = targets[i] as UCompositeGameObject;
+                        if(c!=null )
+                            {
+                                for (int j = 0; j < c.Children.Count; j++)
+                                {
+                                    c.Children[j].RemoveAllBehaviors();
+                                }
+                                
+
+                            }
+
+                        targets.RemoveAt(i);
+                        
+                        break;
                     }
                 }
             }

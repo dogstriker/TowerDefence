@@ -23,7 +23,8 @@ namespace TowerDefence
 
         public override void Act()
         {
-            if (currTarget != null)
+
+            if (currTarget != null && currTarget.Par.HP > 0)
             {
                 var d = GameMath.CompareAngles(unit.Par.Angle, currTarget.Par.Angle);
                 if (d > lastDelta)
@@ -44,11 +45,17 @@ namespace TowerDefence
                     lastDelta = d;
                 }
             }
+            else
+            {
+                SetTarget();
+            
+            }
         }
 
         void SetTarget()
         {
             double t, min = 361;
+            currTarget = null;
             for (int i = 0; i < targets.Count; i++)
             {
                 t = GameMath.CompareAngles(unit.Par.Angle, targets[i].Par.Angle);

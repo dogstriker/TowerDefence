@@ -44,6 +44,7 @@ namespace TowerDefence
             GameObjectsList.Add(Base);
             Base.SetContainerSize(100, 100);
             friendly.Add(Base);
+            Base.Par.HP = 1000000;
         }
         UCompositeGameObject AddTank(string[] picList, GOParams[] par)
         {

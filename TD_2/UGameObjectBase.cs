@@ -61,6 +61,17 @@ namespace TowerDefence
         public void Destroyed()
         {
             game.Map.ContainerSetFrame(Container, destroyedPictureName);
+            UCompositeGameObject c = this as UCompositeGameObject;
+            if (c != null)
+            {
+                for (int j = 0; j < c.Children.Count; j++)
+                {
+                    c.Children[j].removeObject();
+
+                }
+
+
+            }
         }
         public virtual void SetAngle(double angle)
         {
@@ -115,6 +126,7 @@ namespace TowerDefence
         public void RemoveAllBehaviors()
         {
             actions.Clear();
+            act.Clear();
         }
     }
 
