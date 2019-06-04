@@ -5,7 +5,7 @@ namespace TowerDefence
 {
     public class RotateTo : Behavior
     {
-        protected UGameObjectBase Target;
+        protected ITargetProvider tarPr;
         protected ICoordinateProvider targetCoords;
         protected UGameObjectBase gObj;
 
@@ -19,9 +19,9 @@ namespace TowerDefence
         //    Target = target;
         //}
 
-        public RotateTo(UGameObjectBase target)
+        public RotateTo(ITargetProvider target)
         {
-            Target = target;
+            tarPr = target;
         }
 
         public RotateTo(ICoordinateProvider target)
@@ -31,10 +31,10 @@ namespace TowerDefence
 
         public override void Act()
         {
-            if (Target != null)
+            if (tarPr != null && tarPr.Target != null)
             {
                 var delta = GameMath.GetRotationToTargetAngularChange(unit.Par.Angle,
-                    GameMath.GetAngleOfVector(Target.Par.X - unit.Par.X, Target.Par.Y - unit.Par.Y),
+                    GameMath.GetAngleOfVector(tarPr.Target.Par.X - unit.Par.X, tarPr.Target.Par.Y - unit.Par.Y),
                     unit.Par.AngularVelocity, 2);
                 //Debug.WriteLine(string.Format("{0} A={1}, x={6}, y={7}, tx={2}, ty={3}, AT={4}, d={5}", unit.Container, unit.Par.Angle, Target.Par.X, Target.Par.Y,
                 // GameMath.GetAngleOfVector(Target.Par.X - unit.Par.X, Target.Par.Y - unit.Par.Y), delta, unit.Par.X, unit.Par.Y));

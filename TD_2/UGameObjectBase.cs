@@ -4,7 +4,7 @@ namespace TowerDefence
 {
 
 
-    public class UGameObjectBase : IActor
+    public class UGameObjectBase : IActor, ITargetProvider
     {
         private Dictionary<string, IBehavior> actions = new Dictionary<string, IBehavior>();
         private List<IBehavior> act = new List<IBehavior>();
@@ -15,6 +15,9 @@ namespace TowerDefence
         static int count = 0;
 
         public string Container { get; protected set; }
+
+        public UGameObjectBase Target { get { return this; } }
+
         public string destroyedPictureName;
 
         static public Game game;
@@ -61,6 +64,7 @@ namespace TowerDefence
         public void Destroyed()
         {
             game.Map.ContainerSetFrame(Container, destroyedPictureName);
+
             UCompositeGameObject c = this as UCompositeGameObject;
             if (c != null)
             {

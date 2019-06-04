@@ -3,9 +3,9 @@ using GameMaps;
 
 namespace TowerDefence
 {
-    public class SelectNearestByAngle : Behavior
+    public class SelectNearestByAngle : Behavior, ITargetProvider
     {
-        public UGameObjectBase currTarget { get; private set; }
+        public UGameObjectBase Target { get; private set; }
         List<UGameObjectBase> targets;
         int deltaCounter;
         double lastDelta;
@@ -24,9 +24,9 @@ namespace TowerDefence
         public override void Act()
         {
 
-            if (currTarget != null && currTarget.Par.HP > 0)
+            if (Target != null && Target.Par.HP > 0)
             {
-                var d = GameMath.CompareAngles(unit.Par.Angle, currTarget.Par.Angle);
+                var d = GameMath.CompareAngles(unit.Par.Angle, Target.Par.Angle);
                 if (d > lastDelta)
                 {
                     deltaCounter++;
@@ -55,7 +55,7 @@ namespace TowerDefence
         void SetTarget()
         {
             double t, min = 361;
-            currTarget = null;
+            Target = null;
             for (int i = 0; i < targets.Count; i++)
             {
                 t = GameMath.CompareAngles(unit.Par.Angle, targets[i].Par.Angle);
@@ -64,7 +64,7 @@ namespace TowerDefence
                     min = t;
                     //if(currTarget != null)
                     //game.Map.ContainerSetFrame(currTarget.GetContainerName(), "flyerRed3");
-                    currTarget = targets[i];
+                    Target = targets[i];
                     //game.Map.ContainerSetFrame(currTarget.GetContainerName(), "flyerRed2");
                 }
             }
