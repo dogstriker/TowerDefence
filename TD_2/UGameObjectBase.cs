@@ -41,13 +41,16 @@ namespace TowerDefence
         {
             if (game.ClickedObj != null)
             {
-
-                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("SelectNearestByAngle");
-                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("RotateTo");
-                ((UCompositeGameObject)game.ClickedObj).Children[0].RemoveBehavior("ShootWhenAimed");
-                ((UCompositeGameObject)game.ClickedObj).Children[0].AddBehavior(new RotateTo(this.Par), "RotateTo");
-                ((UCompositeGameObject)game.ClickedObj).Children[0].AddBehavior(new ShootWhenAimed(this, "LightShell", game.enemies), "ShootWhenAimed");
-
+                
+                UCompositeGameObject o = (UCompositeGameObject)game.ClickedObj;
+                for (int i = 0; i < o.Children.Count; i++)
+                {
+                    o.Children[i].RemoveBehavior("SelectNearestByAngle");
+                    o.Children[i].RemoveBehavior("RotateTo");
+                    o.Children[i].RemoveBehavior("ShootWhenAimed");
+                    o.Children[i].AddBehavior(new RotateTo(this.Par), "RotateTo");
+                    o.Children[i].AddBehavior(new ShootWhenAimed(this, "LightShell", game.enemies), "ShootWhenAimed");
+                }
             }
             
         }
@@ -64,7 +67,7 @@ namespace TowerDefence
         public void Destroyed()
         {
             game.Map.ContainerSetFrame(Container, destroyedPictureName);
-
+            game.Map.ContainerSetMaxSide(Container, 60);
             UCompositeGameObject c = this as UCompositeGameObject;
             if (c != null)
             {

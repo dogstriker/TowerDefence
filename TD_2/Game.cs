@@ -93,6 +93,7 @@ namespace TowerDefence
                     v = new SelectNearestByAngle(enemies);
                     tank.Par.CopyPar (p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
+                    tank.Par.HP = 100;
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
@@ -111,6 +112,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 80);
                     p[1].Par.Add("maxSide", 80);
+                    tank.Par.HP = 150;
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
                     v = new SelectNearestByAngle(enemies);
                     tank.Par.CopyPar ( p[0]);
@@ -131,12 +133,12 @@ namespace TowerDefence
                     {
                         p = new GOParams[]{
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=25},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=21},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=16},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=14},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
                         new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
-                        p[0].HP = 10000;
+                        p[0].HP = 5000;
                         p[0].Par.Add("maxSide", 200);
                         p[1].Par.Add("maxSide", 120);
                         p[2].Par.Add("maxSide", 120);
@@ -164,7 +166,7 @@ namespace TowerDefence
                 case "enemyLightTank":
                      p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
+                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 200}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[0].HP = 100;
@@ -172,6 +174,7 @@ namespace TowerDefence
                     v = new SelectNearestByAngle(friendly);
                     tank.Par.CopyPar (p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
+                    tank.destroyedPictureName = "platformRedDestroyed3";
                     //добавить танк в списки союзников и игровых обьектов
                     // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
@@ -196,7 +199,7 @@ namespace TowerDefence
         public void setMovementGoalByClick(int x, int y, int cx, int cy)
         {
            
-            if (ClickedObj != null)
+            if (ClickedObj != null&&ClickedObj.Par.HP>0)
             {
                 DoubleCoordinate c = new DoubleCoordinate(x, y);
                 ClickedObj.RemoveBehavior("MoveForward");

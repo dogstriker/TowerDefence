@@ -57,8 +57,9 @@ namespace TowerDefence
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
-            game.CreateTank("Baneblade",100, 200);
-            game.Map.Library.AddPicture("platformRedDestroyed3", "platformRedDestroyed3.png");
+            //game.CreateTank("Baneblade",100, 200);
+           // game.CreateTank("enemyLightTank", 500, 500); game.CreateTank("enemyLightTank", 1000, 300); game.CreateTank("enemyLightTank", 750, 750); game.CreateTank("enemyLightTank", 200, 200);
+            
 
         }
         void AddPictures()
@@ -75,6 +76,7 @@ namespace TowerDefence
             ReadPictures("exp4-", "", 16);
             ReadPictures("blast", "", 9);
             game.Map.Library.AddPicture("tank1", "tank1.png");
+            game.Map.Library.AddPicture("platformRedDestroyed3", "platformRedDestroyed3.png");
             string[] s = new string[9];
             for (int i = 1; i <= 9; i++)
             {
@@ -91,7 +93,7 @@ namespace TowerDefence
             {
                 game.Map.Library.AddPicture(Name + Type + i.ToString(), Name + Type + i.ToString() + ".png");
             }
-        }
+        } 
 
         void CheckInventoryClick(string s)
         {
