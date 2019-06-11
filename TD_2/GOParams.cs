@@ -16,6 +16,7 @@ namespace TowerDefence
         public int ChargeRate { get; set; }
         public int ChargeLevel { get; set; }
         public int ChargeReady { get; set; }
+        public int Resources { get; set; }
         private double velocity;
         public Dictionary<string, double> Par=new Dictionary<string,double>();
         public double Velocity {

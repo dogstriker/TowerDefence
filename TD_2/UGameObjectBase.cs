@@ -22,6 +22,8 @@ namespace TowerDefence
 
         static public Game game;
 
+        public clickerBase clicked;
+
         public UGameObjectBase(double x, double y, string PictureName, int team = 0)
         {
             Par = new GOParams();
@@ -54,10 +56,11 @@ namespace TowerDefence
             }
             
         }
+        
         public void Click()
         {
-            game.ClickedObj = this;
-
+           // game.ClickedObj = this;
+            clicked.Clicked(this);
         }
 
         public void SetContainerSize(int Xsize, int Ysize)

@@ -31,7 +31,7 @@ namespace TowerDefence
         InventoryPanel unitsPanel;
         string tankName;
         
-        Game game = new Game(2);
+        static public Game game = new Game(2);
         public MainWindow()
         {
             UGameObjectBase.game = game;
@@ -57,6 +57,7 @@ namespace TowerDefence
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
+            game.CreateTank("scavenger", 1500, 500);
             //game.CreateTank("Baneblade",100, 200);
            // game.CreateTank("enemyLightTank", 500, 500); game.CreateTank("enemyLightTank", 1000, 300); game.CreateTank("enemyLightTank", 750, 750); game.CreateTank("enemyLightTank", 200, 200);
             
@@ -67,12 +68,13 @@ namespace TowerDefence
             game.Map.Library.ImagesFolder = new PathInfo { Path = "..\\..\\images", Type = PathType.Relative };
             ReadPictures("platform", "Red", 4);
             ReadPictures("flyer", "Red", 3);
+            ReadPictures("flyer", "Sand", 4);
             ReadPictures("Missile", "Red", 1);
             game.Map.Library.AddPicture("base", "fanning_unit.png");
             ReadPictures("exp", "", 9);
             ReadPictures("tower", "Sand", 8);
             ReadPictures("tower", "Red", 3);
-            ReadPictures("platform", "Sand", 8);
+            ReadPictures("platform", "Sand", 9);
             ReadPictures("exp4-", "", 16);
             ReadPictures("blast", "", 9);
             game.Map.Library.AddPicture("tank1", "tank1.png");

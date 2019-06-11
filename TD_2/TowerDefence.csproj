@@ -76,9 +76,11 @@
     <Compile Include="Behaviors\Reloading.cs" />
     <Compile Include="Behaviors\RotateTo.cs" />
     <Compile Include="Behaviors\SelectNearestByAngle.cs" />
+    <Compile Include="Behaviors\SelectNearestByRange.cs" />
     <Compile Include="Behaviors\ShootWhenAimed.cs" />
     <Compile Include="Behaviors\StopAtPoint.cs" />
     <Compile Include="Behaviors\SynchronizeCoords.cs" />
+    <Compile Include="clickerBase.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="GOParams.cs" />
     <Compile Include="Behaviors\hitAny.cs" />
