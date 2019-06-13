@@ -95,6 +95,7 @@ namespace TowerDefence
                     tank.Par.HP = 100;
                     tank.Par.Resources = 100;
                     tank.clicked = new storeLeftClick();
+                    tank.Children[0].AddBehavior(new SelectNearestByRange(GameObjectsList), "SelectNearestByRange");
                     Map.ContainerSetLeftClickHandler(tank.Container,ClickType.Left, tank.Click);
                     Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Left, tank.Click);
                     friendly.Add(tank);
@@ -204,7 +205,7 @@ namespace TowerDefence
                     // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
-                    tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
+               //     tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
