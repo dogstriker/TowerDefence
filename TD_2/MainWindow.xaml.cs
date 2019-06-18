@@ -27,10 +27,10 @@ namespace TowerDefence
 
         IGameScreenLayout Lay;
         CellMapInfo MapInfo;
-       
+        
         InventoryPanel unitsPanel;
         string tankName;
-        
+        TextArea_Vertical info;
         static public Game game = new Game(2);
         public MainWindow()
         {
@@ -47,19 +47,24 @@ namespace TowerDefence
             Lay.Attach(unitsPanel, 1);
             unitsPanel.SetBackground(Brushes.Wheat);
             game.Map.SetMapBackground(Brushes.Black);
+
+            info = new TextArea_Vertical();
+            Lay.Attach(info, 1);
+            info.AddTextBlock("Resources");
+            
             AddPictures();
             unitsPanel.AddItem("allyLightTank", "tank1", "Light Tank");
             unitsPanel.SetMouseClickHandler(CheckInventoryClick);
             unitsPanel.AddItem("allyMediumTank", "platformSand3", "Medium Tank");
-
+            game.timer.AddAction(ShowResources, 1000);
 
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
-            game.CreateTank("scavenger", 1500, 500);
+            game.CreateTank("scavenger", 500, 500);
             //game.CreateTank("Baneblade",100, 200);
-           // game.CreateTank("enemyLightTank", 500, 500); game.CreateTank("enemyLightTank", 1000, 300); game.CreateTank("enemyLightTank", 750, 750); game.CreateTank("enemyLightTank", 200, 200);
+            game.CreateTank("enemyLightTank", 500, 500); game.CreateTank("enemyLightTank", 300, 500);  game.CreateTank("enemyLightTank", 195, 198); game.CreateTank("enemyLightTank", 398, 946);
             
 
         }
@@ -88,7 +93,10 @@ namespace TowerDefence
             a.AddEqualFrames(50, s);
             game.Map.Library.AddAnimation("explosion", a);
         }
-        
+        void ShowResources()
+        {
+            info.SetText("Resources", game.totalResources.ToString() + " scrap");
+        }
         void ReadPictures(string Name,string Type,int number)
         {
             for (int i = 1; i <= number; i++)

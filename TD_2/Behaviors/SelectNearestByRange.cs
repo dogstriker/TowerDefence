@@ -22,7 +22,7 @@ namespace TowerDefence
             for (int i = 0; i < targetsList.Count; i++)
             {
                 t = (targetsList[i].Par.X - unit.Par.X) * (targetsList[i].Par.X - unit.Par.X) + (targetsList[i].Par.Y - unit.Par.Y) * (targetsList[i].Par.Y - unit.Par.Y);
-                if (t < min)
+                if (t < min&&t>0)
                 {
                     min = t;
                     minimum = min;
@@ -34,10 +34,12 @@ namespace TowerDefence
             }
         }
         public override void Act()
-        { 
-        if(Target==null||(Target.Par.X - unit.Par.X) * (Target.Par.X - unit.Par.X) + (Target.Par.Y - unit.Par.Y) * (Target.Par.Y - unit.Par.Y)>minimum)
+        {
+            UGameObjectBase t=Target;
+            SetTarget();
+            if(t!=Target)
             {
-                SetTarget();
+        
                 unit.RemoveBehavior("RotateTo");
                 unit.AddBehavior(new RotateTo(Target.Par), "RotateTo");
             }

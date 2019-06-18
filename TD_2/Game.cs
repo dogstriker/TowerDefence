@@ -10,7 +10,7 @@ namespace TowerDefence
     {
         public UniversalMap_Wpf Map;
         public List<UGameObjectBase> GameObjectsList = new List<UGameObjectBase>();
-        TimerController timer = new TimerController();
+        public TimerController timer = new TimerController();
         List<List<UGameObjectBase>> teamUnits = new List<List<UGameObjectBase>>();
         public List<UGameObjectBase> friendly = new List<UGameObjectBase>();
         public List<UGameObjectBase> enemies = new List<UGameObjectBase>();
@@ -18,7 +18,7 @@ namespace TowerDefence
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
         public UGameObjectBase ClickedObj;
         public UGameObjectBase RightClickedObj;
-
+        public int totalResources;
 
         public UGameObjectBase Base;
         public Game(int teams)
@@ -44,7 +44,7 @@ namespace TowerDefence
             GameObjectsList.Add(Base);
             Base.SetContainerSize(100, 100);
             friendly.Add(Base);
-            Base.Par.HP = 1000000;
+            Base.Par.HP = 10;
         }
         UCompositeGameObject AddTank(string[] picList, GOParams[] par)
         {
@@ -104,7 +104,7 @@ namespace TowerDefence
                 case "allyLightTank":
                         p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=200}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
@@ -143,7 +143,7 @@ namespace TowerDefence
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
-                    tank.Children[0].AddBehavior(new ShootWhenAimed(v,"LightShell",enemies), "ShootWhenAimed");
+                    tank.Children[0].AddBehavior(new ShootWhenAimed(v,"ArmorPiercing",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     tank.clicked = new storeLeftClick();
@@ -160,7 +160,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
-                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
                         p[0].HP = 5000;
                         p[0].Par.Add("maxSide", 200);
                         p[1].Par.Add("maxSide", 120);
@@ -172,16 +172,23 @@ namespace TowerDefence
                         tank.Par.CopyPar(p[0]);
                         tank.clicked = new storeLeftClick();
                         tank.Par.Resources = 1000;
-                        for (int i = 0; i < 5; i++)
+                        for (int i = 0; i < 4; i++)
                         {
                             v = new SelectNearestByAngle(enemies);
                             tank.Children[i].Par.CopyParWithoutPosition(p[i+1]);
                             tank.Children[i].AddBehavior(v, "SelectNearestByAngle");
                             tank.Children[i].AddBehavior(new RotateTo(v), "RotateTo");
-                            tank.Children[i].AddBehavior(new ShootWhenAimed(v, "LightShell", enemies), "ShootWhenAimed");
+                            tank.Children[i].AddBehavior(new ShootWhenAimed(v, "ArmorPiercing", enemies), "ShootWhenAimed");
                             tank.Children[i].AddBehavior(new Reloading(), "Reloading");
                             Map.ContainerSetLeftClickHandler(tank.Children[i].Container, ClickType.Left, tank.Click);
                         }
+                        v = new SelectNearestByAngle(enemies);
+                        tank.Children[4].Par.CopyParWithoutPosition(p[5]);
+                        tank.Children[4].AddBehavior(v, "SelectNearestByAngle");
+                        tank.Children[4].AddBehavior(new RotateTo(v), "RotateTo");
+                        tank.Children[4].AddBehavior(new ShootWhenAimed(v, "Ripper", enemies), "ShootWhenAimed");
+                        tank.Children[4].AddBehavior(new Reloading(), "Reloading");
+                        Map.ContainerSetLeftClickHandler(tank.Children[4].Container, ClickType.Left, tank.Click);
                         Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Left, tank.Click);
                         friendly.Add(tank);
                         GameObjectsList.Add(tank);
@@ -205,7 +212,7 @@ namespace TowerDefence
                     // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
-               //     tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
+                    tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
@@ -281,9 +288,28 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
-                    obj.Par.DamageMax = 10;
+                    obj.Par.DamageMax = 2;
 
                     break;
+                case "ArmorPiercing":
+                    obj = new UGameObjectBase(X, Y, "blast5");
+                    Map.ContainerSetMaxSide(obj.Container, 17);
+                    obj.Par.Velocity = 12;
+                    obj.AddBehavior(new MoveForward(), "MoveForward");
+                    obj.SetAngle(Angle);
+                    obj.AddBehavior(new hitAny(targetList),"hitAny");
+                    obj.Par.DamageMax = 20;
+                    break;
+                case "Ripper":
+                     obj = new UGameObjectBase(X, Y, "blast5");
+                    Map.ContainerSetMaxSide(obj.Container, 25);
+                    obj.Par.Velocity = 12;
+                    obj.AddBehavior(new MoveForward(), "MoveForward");
+                    obj.SetAngle(Angle);
+                    obj.AddBehavior(new hitAny(targetList),"hitAny");
+                    obj.Par.DamageMax = 200;
+                    break;
+
                 case "Rocket":
                     obj = new UGameObjectBase(X, Y, "MissileRed1", 1);
                     obj.SetContainerSize(30, 12);
