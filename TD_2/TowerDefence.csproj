@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="Behaviors\Behavior.cs" />
     <Compile Include="Behaviors\BehaviorContainer.cs" />
+    <Compile Include="Behaviors\CollectResources.cs" />
     <Compile Include="Behaviors\ControlSimpleFlyer.cs" />
     <Compile Include="Behaviors\Hit.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />

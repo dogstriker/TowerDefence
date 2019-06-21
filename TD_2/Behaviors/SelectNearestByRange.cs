@@ -8,7 +8,7 @@ namespace TowerDefence
 {
     class SelectNearestByRange: Behavior
     {
-        UGameObjectBase Target;
+        public UGameObjectBase Target { get; private set; }
         List<UGameObjectBase> targetsList;
         double minimum;
         public SelectNearestByRange(List<UGameObjectBase> l )

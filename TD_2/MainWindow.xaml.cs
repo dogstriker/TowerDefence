@@ -57,14 +57,14 @@ namespace TowerDefence
             unitsPanel.SetMouseClickHandler(CheckInventoryClick);
             unitsPanel.AddItem("allyMediumTank", "platformSand3", "Medium Tank");
             game.timer.AddAction(ShowResources, 1000);
-
+            
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             game.CreateTank("enemyLightTank", 1000, 500);
             game.CreateTank("scavenger", 500, 500);
             //game.CreateTank("Baneblade",100, 200);
-            game.CreateTank("enemyLightTank", 500, 500); game.CreateTank("enemyLightTank", 300, 500);  game.CreateTank("enemyLightTank", 195, 198); game.CreateTank("enemyLightTank", 398, 946);
+            game.CreateTank("enemyLightTank", 500, 500);
             
 
         }

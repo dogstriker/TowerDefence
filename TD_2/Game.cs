@@ -44,7 +44,7 @@ namespace TowerDefence
             GameObjectsList.Add(Base);
             Base.SetContainerSize(100, 100);
             friendly.Add(Base);
-            Base.Par.HP = 10;
+            Base.Par.HP = 999999;
         }
         UCompositeGameObject AddTank(string[] picList, GOParams[] par)
         {
@@ -130,7 +130,7 @@ namespace TowerDefence
                 case "allyMediumTank":
                         p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
                     p[0].Par.Add("maxSide", 80);
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
@@ -288,7 +288,7 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
-                    obj.Par.DamageMax = 2;
+                    obj.Par.DamageMax = 1;
 
                     break;
                 case "ArmorPiercing":
@@ -298,7 +298,7 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
-                    obj.Par.DamageMax = 20;
+                    obj.Par.DamageMax = 50;
                     break;
                 case "Ripper":
                      obj = new UGameObjectBase(X, Y, "blast5");
