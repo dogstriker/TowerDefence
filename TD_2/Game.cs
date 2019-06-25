@@ -19,7 +19,7 @@ namespace TowerDefence
         public UGameObjectBase ClickedObj;
         public UGameObjectBase RightClickedObj;
         public int totalResources;
-
+        public int ClickTimeCount;
         public UGameObjectBase Base;
         public Game(int teams)
         {
@@ -32,9 +32,11 @@ namespace TowerDefence
         }
         void EnemiesAct()
         {
+            ClickTimeCount--;
             for(int i = 0; i < GameObjectsList.Count; i++)
             {
                 GameObjectsList[i].Act();
+
             }
         }
 
@@ -95,9 +97,12 @@ namespace TowerDefence
                     tank.Par.HP = 100;
                     tank.Par.Resources = 100;
                     tank.clicked = new storeLeftClick();
-                    tank.Children[0].AddBehavior(new SelectNearestByRange(GameObjectsList), "SelectNearestByRange");
+                    SelectNearestByRange s=new SelectNearestByRange(GameObjectsList);
+                    tank.Children[0].AddBehavior(s, "SelectNearestByRange");
+                    tank.AddBehavior(new CollectResources(s), "CollectResources");
                     Map.ContainerSetLeftClickHandler(tank.Container,ClickType.Left, tank.Click);
                     Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Left, tank.Click);
+
                     friendly.Add(tank);
                     GameObjectsList.Add(tank);
                     break;
@@ -232,7 +237,7 @@ namespace TowerDefence
         public void setMovementGoalByClick(int x, int y, int cx, int cy)
         {
            
-            if (ClickedObj != null&&ClickedObj.Par.HP>0)
+            if (ClickTimeCount<=0&&ClickedObj != null&&ClickedObj.Par.HP>0)
             {
                 DoubleCoordinate c = new DoubleCoordinate(x, y);
                 ClickedObj.RemoveBehavior("MoveForward");
@@ -245,6 +250,7 @@ namespace TowerDefence
                 b.SetMinimalRange();
                 
             }
+
         }
         public void AddObject(string name, GOParams par)
         {

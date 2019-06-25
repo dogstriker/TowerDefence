@@ -15,7 +15,7 @@ namespace TowerDefence
         }
         public override void Act()
         {
-            if (r.Target.Par.HP <= 0 && game.Map.CollisionContainers(r.Target.Container, (unit as UCompositeGameObject).Children[0].Container) && r.Target.Par.Resources>0)
+            if (r.Target!=null&&r.Target.Par.HP <= 0 && game.Map.CollisionContainers(r.Target.Container, (unit as UCompositeGameObject).Children[0].Container) && r.Target.Par.Resources>0)
             {
                 unit.Par.Resources++;
                 r.Target.Par.Resources--;

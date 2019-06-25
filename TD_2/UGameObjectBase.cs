@@ -61,6 +61,7 @@ namespace TowerDefence
         {
            // game.ClickedObj = this;
             clicked.Clicked(this);
+            game.ClickTimeCount = 5;
         }
 
         public void SetContainerSize(int Xsize, int Ysize)
