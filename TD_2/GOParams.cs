@@ -6,6 +6,7 @@ namespace TowerDefence
 {
     public class GOParams : ICoordinateProvider, IPositionProvider
     {
+        public int TTL { get; set; }
         public bool IsFriendly { get; set; }
         public int HP { get; set; }
         public int Attack { get; set; }

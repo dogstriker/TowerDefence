@@ -282,7 +282,7 @@ namespace TowerDefence
                 teamUnits[u.Team].Add(u);
             }
         }
-        public void AddShell(string name,List<UGameObjectBase> targetList,int X,int Y,int Angle)
+        public void AddShell(string name,List<UGameObjectBase> targetList,int X,int Y,int Angle,int Range)
         {
             UGameObjectBase obj = null;
             switch (name)

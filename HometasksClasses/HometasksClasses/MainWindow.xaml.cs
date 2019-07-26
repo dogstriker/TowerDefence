@@ -22,6 +22,8 @@ namespace HometasksClasses
     /// </summary>
     public partial class MainWindow : Window
     {
+        int count = 0;
+        string direction = "left";
         RobotQuestMap q;
         public MainWindow()
         {
@@ -35,7 +37,83 @@ namespace HometasksClasses
 
         void Solution()
         {
-            q.MoveUp();
+            
+            if (count == 0)
+            {
+                if (q.GetUpperCell() == ' '||q.GetUpperCell()=='e')
+                {
+                    q.MoveUp();
+                }
+                else 
+                {
+                    count = 1;
+                }
+            }
+            if (count == 1)
+            {
+                if (direction == "left")
+                {
+                    if (q.GetLeftCell() == ' ' || q.GetLeftCell() == 'e')
+                    {
+                        q.MoveLeft();
+                        if (q.GetUpperCell() == ' ' || q.GetUpperCell() == 'e')
+                        {
+                            direction = "up";
+                        }
+                    }
+                    else 
+                    {
+                        direction = "down";
+                    }
+                }
+                else if (direction == "up")
+                {
+                    if (q.GetUpperCell() == ' ' || q.GetUpperCell() == 'e')
+                    {
+                        q.MoveUp();
+                        if (q.GetRightCell() == ' ' || q.GetRightCell() == 'e')
+                        {
+                            direction = "right";
+                        }
+                    }
+                    else
+                    {
+                        direction = "left";
+                    }
+                }
+                else if (direction == "right")
+                {
+                    if (q.GetRightCell() == ' ' || q.GetRightCell() == 'e')
+                    {
+                        q.MoveRight();
+                        if (q.GetLowerCell() == ' ' || q.GetLowerCell() == 'e')
+                        {
+                            direction = "down";
+                        }
+                    }
+                    else
+                    {
+                        direction = "up";
+                    }
+                }
+                else
+                {
+                    if (q.GetLowerCell() == ' ' || q.GetLowerCell() == 'e')
+                    {
+                        q.MoveDown();
+                        if (q.GetLeftCell() == ' ' || q.GetLeftCell() == 'e')
+                        {
+                            direction = "left";
+                        }
+                    }
+                    else
+                    {
+                        direction = "right";
+                    }
+                }
+                    
+
+            }
         }
 
 

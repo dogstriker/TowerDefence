@@ -24,7 +24,7 @@ namespace TowerDefence
             {
                 if (tarPr.Target!=null&&Math.Abs(unit.Par.Angle - GameMath.GetAngleOfVector(tarPr.Target.Par.X- unit.Par.X, tarPr.Target.Par.Y- unit.Par.Y)) <= Precision)
                 {
-                    game.AddShell(ShellName, G, (int)unit.Par.X, (int)unit.Par.Y,(int) unit.Par.Angle);
+                    game.AddShell(ShellName, G, (int)unit.Par.X, (int)unit.Par.Y,(int) unit.Par.Angle,unit.Par.Range);
                     unit.Par.ChargeLevel = 0;
                 }
 
