@@ -73,6 +73,7 @@ namespace TowerDefence
             ChargeLevel = p.ChargeLevel;
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
+            Range = p.Range;
             HP = p.HP;
             X = p.X;
             Y = p.Y;

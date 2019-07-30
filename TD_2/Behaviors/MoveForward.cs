@@ -20,6 +20,16 @@ namespace TowerDefence
 
         public override void Act()
         {
+            if (unit.Par.Par.ContainsKey("Distance"))
+            {
+                unit.Par.Par["Distance"] += unit.Par.Velocity;
+                if (unit.Par.Par["Distance"] >= unit.Par.Range)
+                {
+                    unit.RemoveAllBehaviors();
+                    unit.removeObject();
+                }
+            }
+            
             unit.SetCoord(unit.Par.X + unit.Par.Vx, unit.Par.Y + unit.Par.Vy);
             if(unit.Par.X < limXmin || unit.Par.X > limXmax || unit.Par.Y < limYmin || unit.Par.Y > limYmax)
             {

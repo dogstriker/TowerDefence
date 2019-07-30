@@ -112,6 +112,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=200}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
+                    p[1].Range = 400;
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
 
                     v = new SelectNearestByAngle(enemies);
@@ -206,6 +207,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 200}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
+                    p[1].Range = 400;
                     p[0].HP = 100;
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
@@ -222,8 +224,8 @@ namespace TowerDefence
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
                     Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Right, tank.RightClick);
-                    tank.AddBehavior(new Patrol(5, true, new DoubleCoordinate(800, 100),
-                        new DoubleCoordinate(100, 200), new DoubleCoordinate(500, 500)), "Patrol");
+                    //tank.AddBehavior(new Patrol(5, true, new DoubleCoordinate(800, 100),
+                      //  new DoubleCoordinate(100, 200), new DoubleCoordinate(500, 500)), "Patrol");
                     //tank.AddBehavior(new Patrol(5, true, new DoubleCoordinate(100, 100),
                     //    new DoubleCoordinate(100, 200), new DoubleCoordinate(500, 500)), "Patrol");
                     enemies.Add(tank);
@@ -327,9 +329,12 @@ namespace TowerDefence
                     break;
 
             }
+
             if (obj != null)
             {
                 GameObjectsList.Add(obj);
+                obj.Par.Par.Add("Distance", 0);
+                obj.Par.Range = Range;
             }
         }
         //public void checkEnemyHits()
