@@ -37,5 +37,10 @@ namespace TowerDefence
                 unit.removeObject();
             }
         }
+        void RemoveObject()
+        {
+            unit.RemoveAllBehaviors();
+            unit.removeObject();
+        }
     }
 }

@@ -138,9 +138,12 @@ namespace TowerDefence
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
                     p[0].Par.Add("maxSide", 80);
+
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
                     v = new SelectNearestByAngle(enemies);
+
+                    p[1].Range = 500;
                     tank.Par.CopyPar ( p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
                     tank.Par.HP = 150;
@@ -208,7 +211,7 @@ namespace TowerDefence
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[1].Range = 400;
-                    p[0].HP = 100;
+                    p[0].HP = 1000000;
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
                     tank.Par.CopyPar (p[0]);

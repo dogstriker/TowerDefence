@@ -55,7 +55,8 @@ namespace TowerDefence
             AddPictures();
             unitsPanel.AddItem("allyLightTank", "tank1", "Light Tank");
             unitsPanel.SetMouseClickHandler(CheckInventoryClick);
-            unitsPanel.AddItem("allyMediumTank", "platformSand3", "Medium Tank");
+            unitsPanel.AddItem("allyMediumTank", "MediumTank", "Medium Tank");
+            unitsPanel.AddItem("scavenger", "scavenger", "scavenger");
             game.timer.AddAction(ShowResources, 1000);
             
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
@@ -82,6 +83,8 @@ namespace TowerDefence
             ReadPictures("platform", "Sand", 9);
             ReadPictures("exp4-", "", 16);
             ReadPictures("blast", "", 9);
+            game.Map.Library.AddPicture("MediumTank", "MediumTank.png");
+            game.Map.Library.AddPicture("scavenger", "scavenger.png");
             game.Map.Library.AddPicture("tank1", "tank1.png");
             game.Map.Library.AddPicture("platformRedDestroyed3", "platformRedDestroyed3.png");
             string[] s = new string[9];
@@ -118,6 +121,11 @@ namespace TowerDefence
                     unitsPanel.SetItemBackground("allyMediumTank", Brushes.LightGreen);
                     
                     game.CreateTank("allyMediumTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                    break;
+                case "scavenger":
+                    unitsPanel.SetItemBackground("scavenger", Brushes.LightGreen);
+                    
+                    game.CreateTank("scavenger", (int)game.Base.Par.X, (int)game.Base.Par.Y);
                     break;
             }
 
