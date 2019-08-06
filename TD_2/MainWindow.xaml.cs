@@ -67,7 +67,7 @@ namespace TowerDefence
             //game.CreateTank("Baneblade",100, 200);
             game.CreateTank("enemyLightTank", 500, 500);
             
-
+        
         }
         void AddPictures()
         {
