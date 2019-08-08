@@ -69,6 +69,7 @@
     <Compile Include="Behaviors\BehaviorContainer.cs" />
     <Compile Include="Behaviors\CollectResources.cs" />
     <Compile Include="Behaviors\ControlSimpleFlyer.cs" />
+    <Compile Include="Behaviors\EnemyLightTankAI.cs" />
     <Compile Include="Behaviors\Hit.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
     <Compile Include="Behaviors\MoveForward.cs" />
