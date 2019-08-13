@@ -62,10 +62,10 @@ namespace TowerDefence
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
 
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
-            game.CreateTank("enemyLightTank", 1000, 500);
+            game.CreateTank("enemyLightTank", 1300, 500);
             game.CreateTank("scavenger", 500, 500);
             //game.CreateTank("Baneblade",100, 200);
-            game.CreateTank("enemyLightTank", 500, 500);
+            game.CreateTank("enemyLightTank", 5, 500);
             
         
         }

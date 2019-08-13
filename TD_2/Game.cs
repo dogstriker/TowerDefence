@@ -220,10 +220,12 @@ namespace TowerDefence
                     tank.destroyedPictureName = "platformRedDestroyed3";
                     //добавить танк в списки союзников и игровых обьектов
                     // слежение за целью и выстрел для башни
-                    tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
-                    tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
-                    tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
-                    tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+
+                    //tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
+                    //tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
+                    //tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
+                    //tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
                     Map.ContainerSetLeftClickHandler(tank.Children[0].Container, ClickType.Right, tank.RightClick);
