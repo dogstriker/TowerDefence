@@ -15,14 +15,27 @@ namespace TowerDefence
         public EnemyLightTankAI(List<UGameObjectBase> l)
         {
             targetList = l;
-            SquareRadius = unit.Par.Range * unit.Par.Range;
+            
+            
         }
         public override void Act()
         {
- 	    //какие поведения кому присваивать для каждого варианта?
+            switch (currStatus)
+            { 
+                case 1:
+                    
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+
+                    break;
+            }
         }
-        void Init()
+        public override void Init(params object[] par)
         {
+            SquareRadius = unit.Par.Range * unit.Par.Range;
             UGameObjectBase tempTarget=null;
             double tempMinAngle = 360;
             double a;
@@ -43,6 +56,7 @@ namespace TowerDefence
                     {
                         tempMinAngle = a;
                         tempTarget = targetList[i];
+                        
                        
                     }
                 }
@@ -57,6 +71,9 @@ namespace TowerDefence
                 }
             }
             //поиск цели вне радиуса при необходимости
+            unit.RemoveAllBehaviors();
+            ((UCompositeGameObject)unit).Children[0].RemoveAllBehaviors();
+           
             if (tempTarget != null)
             {
                 currStatus = 1;
@@ -66,7 +83,10 @@ namespace TowerDefence
             {
                 currStatus = 3;
                 currTarget = tempOTRTarget;
+                unit.AddBehavior(new MoveForward(),"MoveTo");
             }
+            unit.AddBehavior(new RotateTo(currTarget), "RotateTo");
+            ((UCompositeGameObject)unit).Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");
         }
     }
 }
