@@ -20,6 +20,7 @@ namespace TowerDefence
         }
         public override void Act()
         {
+            double r;
             switch (currStatus)
             { 
                 case 1:
@@ -29,13 +30,19 @@ namespace TowerDefence
 
                     break;
                 case 3:
-
+                    r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
+                    if (r < SquareRadius*0.97)
+                    {
+                        currStatus = 2;
+                        
+                        ((UCompositeGameObject)unit).Children[0].AddBehavior(new ShootWhenAimed(currTarget,"LightShell",targetList),"ShotWhenAimed");
+                    }
                     break;
             }
         }
         public override void Init(params object[] par)
         {
-            SquareRadius = unit.Par.Range * unit.Par.Range;
+            SquareRadius = ((UCompositeGameObject)unit).Children[0].Par.Range * ((UCompositeGameObject)unit).Children[0].Par.Range;
             UGameObjectBase tempTarget=null;
             double tempMinAngle = 360;
             double a;

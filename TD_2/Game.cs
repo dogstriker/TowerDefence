@@ -224,7 +224,7 @@ namespace TowerDefence
                     //tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     //tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
                     //tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
-                    //tank.Children[0].AddBehavior(new Reloading(), "Reloading");
+                    tank.Children[0].AddBehavior(new Reloading(), "Reloading");
 
                     ////tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
                     Map.ContainerSetLeftClickHandler(tank.Container, ClickType.Right, tank.RightClick);
