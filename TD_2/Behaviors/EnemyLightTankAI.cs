@@ -8,6 +8,7 @@ namespace TowerDefence
 {
     class EnemyLightTankAI:Behavior
     {
+        UCompositeGameObject CompositeUnit;
         int currStatus;
         double SquareRadius;
         UGameObjectBase currTarget;
@@ -15,7 +16,7 @@ namespace TowerDefence
         public EnemyLightTankAI(List<UGameObjectBase> l)
         {
             targetList = l;
-            
+         
             
         }
         public override void Act()
@@ -31,18 +32,24 @@ namespace TowerDefence
                     break;
                 case 3:
                     r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
-                    if (r < SquareRadius*0.97)
+
+                    if (r < SquareRadius * 0.97)
                     {
                         currStatus = 2;
-                        
-                        ((UCompositeGameObject)unit).Children[0].AddBehavior(new ShootWhenAimed(currTarget,"LightShell",targetList),"ShotWhenAimed");
+
+                        CompositeUnit.Children[0].AddBehavior(new ShootWhenAimed(currTarget, "LightShell", targetList), "ShotWhenAimed");
+                    }
+                    else if(r>=SquareRadius*2)
+                    {
+                        Init();
                     }
                     break;
             }
         }
         public override void Init(params object[] par)
         {
-            SquareRadius = ((UCompositeGameObject)unit).Children[0].Par.Range * ((UCompositeGameObject)unit).Children[0].Par.Range;
+            CompositeUnit = (UCompositeGameObject)unit;
+            SquareRadius = CompositeUnit.Children[0].Par.Range * CompositeUnit.Children[0].Par.Range;
             UGameObjectBase tempTarget=null;
             double tempMinAngle = 360;
             double a;
@@ -79,21 +86,26 @@ namespace TowerDefence
             }
             //поиск цели вне радиуса при необходимости
             unit.RemoveAllBehaviors();
-            ((UCompositeGameObject)unit).Children[0].RemoveAllBehaviors();
+            CompositeUnit.Children[0].RemoveAllBehaviors();
            
             if (tempTarget != null)
             {
-                currStatus = 1;
-                currTarget = tempTarget;
+               // if (currTarget != tempTarget)
+                
+                    currStatus = 1;
+                    currTarget = tempTarget;
+                    CompositeUnit.Children[0].AddBehavior(new ShootWhenAimed(currTarget, "LightShell", targetList), "ShootWhenAimed");
+                
             }
             else
             {
+                
                 currStatus = 3;
                 currTarget = tempOTRTarget;
                 unit.AddBehavior(new MoveForward(),"MoveTo");
             }
             unit.AddBehavior(new RotateTo(currTarget), "RotateTo");
-            ((UCompositeGameObject)unit).Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");
+            CompositeUnit.Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");
         }
     }
 }
