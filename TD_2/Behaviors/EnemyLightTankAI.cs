@@ -22,28 +22,35 @@ namespace TowerDefence
         public override void Act()
         {
             double r;
-            switch (currStatus)
-            { 
-                case 1:
-                    
-                    break;
-                case 2:
+            if (currTarget.Par.HP > 0)
+            {
+                switch (currStatus)
+                {
+                    case 1:
 
-                    break;
-                case 3:
-                    r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
+                        break;
+                    case 2:
 
-                    if (r < SquareRadius * 0.97)
-                    {
-                        currStatus = 2;
+                        break;
+                    case 3:
+                        r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
 
-                        CompositeUnit.Children[0].AddBehavior(new ShootWhenAimed(currTarget, "LightShell", targetList), "ShotWhenAimed");
-                    }
-                    else if(r>=SquareRadius*2)
-                    {
-                        Init();
-                    }
-                    break;
+                        if (r < SquareRadius * 0.97)
+                        {
+                            currStatus = 2;
+
+                            CompositeUnit.Children[0].AddBehavior(new ShootWhenAimed(currTarget, "LightShell", targetList), "ShotWhenAimed");
+                        }
+                        else if (r >= SquareRadius * 2)
+                        {
+                            Init();
+                        }
+                        break;
+                }
+            }
+            else 
+            {
+                Init();
             }
         }
         public override void Init(params object[] par)
@@ -85,8 +92,7 @@ namespace TowerDefence
                 }
             }
             //поиск цели вне радиуса при необходимости
-            unit.RemoveAllBehaviors();
-            CompositeUnit.Children[0].RemoveAllBehaviors();
+            RemoveAllBehaviorsExceptAI();
            
             if (tempTarget != null)
             {
@@ -102,10 +108,18 @@ namespace TowerDefence
                 
                 currStatus = 3;
                 currTarget = tempOTRTarget;
-                unit.AddBehavior(new MoveForward(),"MoveTo");
+                unit.AddBehavior(new MoveForward(),"MoveForward");
             }
             unit.AddBehavior(new RotateTo(currTarget), "RotateTo");
             CompositeUnit.Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");
         }
+        void RemoveAllBehaviorsExceptAI()
+        {
+            unit.RemoveBehavior("MoveForward");
+            unit.RemoveBehavior("RotateTo");
+            CompositeUnit.Children[0].RemoveBehavior("ShootWhenAimed");
+            CompositeUnit.Children[0].RemoveBehavior("RotateTo");
+        }
     }
+    
 }

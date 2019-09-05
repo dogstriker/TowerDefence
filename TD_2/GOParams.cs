@@ -96,6 +96,7 @@ namespace TowerDefence
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
             HP = p.HP;
+            Range = p.Range;
 
             //foreach (var k in p.Par.Keys)
             //{

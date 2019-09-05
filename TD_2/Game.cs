@@ -165,11 +165,11 @@ namespace TowerDefence
                     {
                         p = new GOParams[]{
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
-                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15},
-                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=3}};
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15,Range=500},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15,Range=500},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15,Range=500},
+                        new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=15,Range=500},
+                        new GOParams{X=x,Y=y,AngularVelocity=1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=7,Range=750}};
                         p[0].HP = 5000;
                         p[0].Par.Add("maxSide", 200);
                         p[1].Par.Add("maxSide", 120);
@@ -211,7 +211,7 @@ namespace TowerDefence
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[1].Range = 400;
-                    p[0].HP = 1000000;
+                    p[0].HP = 100;
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
                     tank.Par.CopyPar (p[0]);
