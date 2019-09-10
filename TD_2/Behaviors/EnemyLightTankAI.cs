@@ -24,16 +24,32 @@ namespace TowerDefence
             double r;
             if (currTarget.Par.HP > 0)
             {
+                r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
                 switch (currStatus)
                 {
                     case 1:
 
+                        if (r > SquareRadius * 0.8)
+                        {
+                            currStatus = 2;
+                            unit.AddBehavior(new MoveForward(), "MoveForward");
+                        }
                         break;
                     case 2:
-
+                        if (r < SquareRadius * 0.8)
+                        {
+                            currStatus = 1;
+                            unit.RemoveBehavior("MoveForward");
+                        }
+                        
+                        else if (r > SquareRadius * 0.97)
+                        {
+                            currStatus = 3;
+                            CompositeUnit.Children[0].RemoveBehavior("ShotWhenAimed");
+                        }
                         break;
                     case 3:
-                        r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
+                      
 
                         if (r < SquareRadius * 0.97)
                         {

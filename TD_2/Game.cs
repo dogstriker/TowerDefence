@@ -120,6 +120,7 @@ namespace TowerDefence
                     tank.Children[0].Par.CopyPar ( p[1]);
                     tank.Par.HP = 100;
                     tank.Par.Resources = 100;
+                    tank.Children[0].Par.Par.Add("shellName", "LightShell");
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
@@ -207,7 +208,7 @@ namespace TowerDefence
                 case "enemyLightTank":
                      p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 200}};
+                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 0}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[1].Range = 400;
