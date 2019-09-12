@@ -90,6 +90,7 @@ namespace TowerDefence
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 60);
+                    p[0].Type = UnitTypes.ground;
                     tank= AddTank(new string[] { "platformSand9", "flyerSand4"},p);
 
                     tank.Par.CopyPar (p[0]);
@@ -111,6 +112,7 @@ namespace TowerDefence
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=200}};
                     p[0].Par.Add("maxSide", 60);
+                    p[0].Type = UnitTypes.ground;
                     p[1].Par.Add("maxSide", 60);
                     p[1].Range = 400;
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
@@ -139,7 +141,7 @@ namespace TowerDefence
                         new GOParams {X=x,Y=y,Velocity=0.8,AngularVelocity=0.8},
                         new GOParams{X=x,Y=y,AngularVelocity=1.1,ChargeLevel=1200,ChargeReady=1200,ChargeRate=10}};
                     p[0].Par.Add("maxSide", 80);
-
+                    p[0].Type = UnitTypes.ground;
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
                     v = new SelectNearestByAngle(enemies);
@@ -180,6 +182,7 @@ namespace TowerDefence
                         p[5].Par.Add("maxSide", 200);
                         tank = AddBaneBlade(new string[] { "platformSand6", "towerSand4", "towerSand5" }, p);
                         tank.Par.CopyPar(p[0]);
+                        p[0].Type = UnitTypes.ground;
                         tank.clicked = new storeLeftClick();
                         tank.Par.Resources = 1000;
                         for (int i = 0; i < 4; i++)
@@ -212,6 +215,7 @@ namespace TowerDefence
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[1].Range = 400;
+                    p[0].Type = UnitTypes.ground;
                     p[0].HP = 100;
                     tank= AddTank(new string[] { "platformRed3", "towerRed3" },p);
                     v = new SelectNearestByAngle(friendly);
