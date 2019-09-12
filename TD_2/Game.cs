@@ -120,7 +120,7 @@ namespace TowerDefence
                     tank.Children[0].Par.CopyPar ( p[1]);
                     tank.Par.HP = 100;
                     tank.Par.Resources = 100;
-                    tank.Children[0].Par.Par.Add("shellName", "LightShell");
+                    tank.Children[0].Par.ParString.Add("ShellName", "LightShell");
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
@@ -143,7 +143,7 @@ namespace TowerDefence
                     p[1].Par.Add("maxSide", 80);
                     tank= AddTank(new string[] { "platformSand3", "towerSand4" },p);
                     v = new SelectNearestByAngle(enemies);
-
+                    tank.Children[0].Par.ParString.Add("ShellName", "ArmorPiercing");
                     p[1].Range = 500;
                     tank.Par.CopyPar ( p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
@@ -208,7 +208,7 @@ namespace TowerDefence
                 case "enemyLightTank":
                      p=new GOParams []{
                         new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
-                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 0}};
+                        new GOParams{X=x,Y=y,AngularVelocity=3.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate= 100}};
                     p[0].Par.Add("maxSide", 60);
                     p[1].Par.Add("maxSide", 90);
                     p[1].Range = 400;
@@ -302,7 +302,7 @@ namespace TowerDefence
                     obj.AddBehavior(new MoveForward(), "MoveForward");
                     obj.SetAngle(Angle);
                     obj.AddBehavior(new hitAny(targetList),"hitAny");
-                    obj.Par.DamageMax = 1;
+                    obj.Par.DamageMax = 5;
 
                     break;
                 case "ArmorPiercing":

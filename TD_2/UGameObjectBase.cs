@@ -51,7 +51,7 @@ namespace TowerDefence
                     o.Children[i].RemoveBehavior("RotateTo");
                     o.Children[i].RemoveBehavior("ShootWhenAimed");
                     o.Children[i].AddBehavior(new RotateTo(this.Par), "RotateTo");
-                    o.Children[i].AddBehavior(new ShootWhenAimed(this, "LightShell", game.enemies), "ShootWhenAimed");
+                    o.Children[i].AddBehavior(new ShootWhenAimed(this, o.Children[i].Par.ParString["ShellName"], game.enemies), "ShootWhenAimed");
                 }
             }
             
@@ -116,7 +116,10 @@ namespace TowerDefence
             else actions.Add(b.Name, b);
             act.Add(b);
         }
-
+        public IBehavior GetBehavior(string BehaviorName)
+        {
+            return actions[BehaviorName];
+        }
         public void RemoveBehavior(string name)
         {
             if (actions.ContainsKey(name))

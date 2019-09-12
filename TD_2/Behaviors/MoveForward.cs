@@ -6,6 +6,7 @@ namespace TowerDefence
     public class MoveForward : Behavior
     {
         bool deleteCheck;
+        public bool DirectionForward = true;
         private int limXmin, limXmax, limYmin, limYmax;
         /// <summary>
         /// При выходе за границу карты более, чем на XAbsolute или YAbsolute, умножить на limitMultiplier, объект уничтожается
@@ -22,6 +23,7 @@ namespace TowerDefence
         public override void Act()
         {
             deleteCheck = true;
+            
             if (unit.Par.Par.ContainsKey("Distance"))
             {
                 unit.Par.Par["Distance"] += unit.Par.Velocity;
@@ -34,7 +36,15 @@ namespace TowerDefence
             }
             if (deleteCheck)
             {
-                unit.SetCoord(unit.Par.X + unit.Par.Vx, unit.Par.Y + unit.Par.Vy);
+
+                if (DirectionForward)
+                {
+                    unit.SetCoord(unit.Par.X + unit.Par.Vx, unit.Par.Y + unit.Par.Vy);
+                }
+                else 
+                {
+                    unit.SetCoord(unit.Par.X - unit.Par.Vx, unit.Par.Y - unit.Par.Vy);
+                }
                 if (unit.Par.X < limXmin || unit.Par.X > limXmax || unit.Par.Y < limYmin || unit.Par.Y > limYmax)
                 {
                     unit.RemoveAllBehaviors();

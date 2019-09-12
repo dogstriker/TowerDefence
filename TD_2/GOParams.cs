@@ -4,8 +4,16 @@ using System.Diagnostics;
 using GameMaps;
 namespace TowerDefence
 {
+    public enum UnitTypes
+    {
+        ground,
+        shell,
+        flyer
+    }
+        
     public class GOParams : ICoordinateProvider, IPositionProvider
     {
+        public UnitTypes Type { get; set; }
         public int TTL { get; set; }
         public bool IsFriendly { get; set; }
         public int HP { get; set; }
@@ -20,6 +28,7 @@ namespace TowerDefence
         public int Resources { get; set; }
         private double velocity;
         public Dictionary<string, double> Par=new Dictionary<string,double>();
+        public Dictionary<string, string> ParString = new Dictionary<string, string>();
         public double Velocity {
             get { return velocity; }
             set { velocity = value; UpdateXYVelocity(); }
@@ -74,6 +83,7 @@ namespace TowerDefence
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
             Range = p.Range;
+            Type = p.Type;
             HP = p.HP;
             X = p.X;
             Y = p.Y;
@@ -95,6 +105,7 @@ namespace TowerDefence
             ChargeLevel = p.ChargeLevel;
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
+            Type = p.Type;
             HP = p.HP;
             Range = p.Range;
 
