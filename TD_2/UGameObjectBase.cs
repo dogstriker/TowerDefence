@@ -118,7 +118,14 @@ namespace TowerDefence
         }
         public IBehavior GetBehavior(string BehaviorName)
         {
-            return actions[BehaviorName];
+            if (actions.ContainsKey(BehaviorName))
+            {
+                return actions[BehaviorName];
+            }
+            else
+            {
+                return null;
+            }
         }
         public void RemoveBehavior(string name)
         {

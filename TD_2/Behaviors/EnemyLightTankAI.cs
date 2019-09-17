@@ -22,7 +22,7 @@ namespace TowerDefence
         public override void Act()
         {
             double r;
-            if (currTarget.Par.HP > 0)
+            if (currTarget!=null&&currTarget.Par.HP > 0)
             {
                 r = (currTarget.Par.X - unit.Par.X) * (currTarget.Par.X - unit.Par.X) + (currTarget.Par.Y - unit.Par.Y) * (currTarget.Par.Y - unit.Par.Y);
                 switch (currStatus)
@@ -125,6 +125,7 @@ namespace TowerDefence
                 currStatus = 3;
                 currTarget = tempOTRTarget;
                 unit.AddBehavior(new MoveForward(),"MoveForward");
+                //что если tempOTRTarget=null?
             }
             unit.AddBehavior(new RotateTo(currTarget), "RotateTo");
             CompositeUnit.Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");

@@ -26,6 +26,7 @@ namespace TowerDefence
         public int ChargeLevel { get; set; }
         public int ChargeReady { get; set; }
         public int Resources { get; set; }
+        public int Mass { get; set; }
         private double velocity;
         public Dictionary<string, double> Par=new Dictionary<string,double>();
         public Dictionary<string, string> ParString = new Dictionary<string, string>();
@@ -83,9 +84,11 @@ namespace TowerDefence
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
             Range = p.Range;
+            Mass = p.Mass;
             Type = p.Type;
             HP = p.HP;
             X = p.X;
+
             Y = p.Y;
             //foreach (var k in p.Par.Keys)
             //{
@@ -106,6 +109,7 @@ namespace TowerDefence
             ChargeReady = p.ChargeReady;
             Velocity = p.Velocity;
             Type = p.Type;
+            Mass = p.Mass;
             HP = p.HP;
             Range = p.Range;
 

@@ -72,6 +72,7 @@
     <Compile Include="Behaviors\EnemyLightTankAI.cs" />
     <Compile Include="Behaviors\Hit.cs" />
     <Compile Include="Behaviors\IBehavior.cs" />
+    <Compile Include="Behaviors\ImpactControl.cs" />
     <Compile Include="Behaviors\MoveForward.cs" />
     <Compile Include="Behaviors\MoveTo.cs" />
     <Compile Include="Behaviors\Patrol.cs" />
