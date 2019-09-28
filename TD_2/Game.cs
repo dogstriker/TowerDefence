@@ -93,7 +93,7 @@ namespace TowerDefence
                     p[1].Par.Add("maxSide", 60);
                     p[0].Type = UnitTypes.ground;
                     tank= AddTank(new string[] { "platformSand9", "flyerSand4"},p);
-
+                    tank.AddBehavior(new ImpactControl(), "ImpactControl");
                     tank.Par.CopyPar (p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
                     tank.Par.HP = 100;
@@ -118,7 +118,7 @@ namespace TowerDefence
                     p[1].Par.Add("maxSide", 60);
                     p[1].Range = 400;
                     tank= AddTank(new string[] { "platformSand1", "towerSand3" },p);
-
+                    tank.AddBehavior(new ImpactControl(), "ImpactControl");
                     v = new SelectNearestByAngle(enemies);
                     tank.Par.CopyPar (p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
@@ -152,6 +152,7 @@ namespace TowerDefence
                     p[1].Range = 500;
                     tank.Par.CopyPar ( p[0]);
                     tank.Children[0].Par.CopyPar ( p[1]);
+                    tank.AddBehavior(new ImpactControl(), "ImpactControl");
                     tank.Par.HP = 500;
                     tank.Par.Resources = 200;
                        //добавить танк в списки союзников и игровых обьектов
@@ -199,6 +200,7 @@ namespace TowerDefence
                             tank.Children[i].AddBehavior(new Reloading(), "Reloading");
                             Map.ContainerSetLeftClickHandler(tank.Children[i].Container, ClickType.Left, tank.Click);
                         }
+                        tank.AddBehavior(new ImpactControl(), "ImpactControl");
                         v = new SelectNearestByAngle(enemies);
                         tank.Children[4].Par.CopyParWithoutPosition(p[5]);
                         tank.Children[4].AddBehavior(v, "SelectNearestByAngle");
@@ -231,6 +233,7 @@ namespace TowerDefence
                     //добавить танк в списки союзников и игровых обьектов
                     // слежение за целью и выстрел для башни
                     tank.AddBehavior(new EnemyLightTankAI(friendly), "EnemyLightTankAI");
+                    tank.AddBehavior(new ImpactControl(),"ImpactControl");
                     //tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
                     //tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
                     //tank.Children[0].AddBehavior(new ShootWhenAimed(v, "LightShell", friendly), "ShootWhenAimed");
@@ -350,6 +353,7 @@ namespace TowerDefence
                 GameObjectsList.Add(obj);
                 obj.Par.Par.Add("Distance", 0);
                 obj.Par.Range = Range;
+                obj.Par.Type = UnitTypes.shell;
             }
         }
         //public void checkEnemyHits()
