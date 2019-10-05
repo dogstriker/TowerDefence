@@ -44,6 +44,7 @@ namespace TowerDefence
             Lay.Attach(game.Map, 0);
             //game.Map.DrawGrid();
             unitsPanel = new InventoryPanel(game.Map.Library, game.Map.CellSize);
+            
             Lay.Attach(unitsPanel, 1);
             unitsPanel.SetBackground(Brushes.Wheat);
             game.Map.SetMapBackground(Brushes.Black);
@@ -109,6 +110,7 @@ namespace TowerDefence
         } 
 
         void CheckInventoryClick(string s)
+            //TODO: проверить колво ресурсов
         {
             switch (s)
             {

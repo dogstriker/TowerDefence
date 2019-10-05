@@ -84,6 +84,22 @@ namespace TowerDefence
 
             }
         }
+        public void StartDestroy()
+        { 
+            game.Map.ContainerSetFrame(this.Container, "exp9");
+            game.Map.AnimationStart(this.Container, "explosion", 1,this.Destroyed);
+            this.RemoveAllBehaviors();
+            UCompositeGameObject c = this as UCompositeGameObject;
+            if (c != null)
+            {
+                for (int j = 0; j < c.Children.Count; j++)
+                {
+                    c.Children[j].RemoveAllBehaviors();
+                }
+
+
+            }
+        }
         public virtual void SetAngle(double angle)
         {
             Par.Angle = angle;

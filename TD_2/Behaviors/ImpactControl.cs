@@ -19,6 +19,7 @@ namespace TowerDefence
                     if (unit.Par.Mass - game.GameObjectsList[i].Par.Mass > 800)
                     {
                         game.GameObjectsList[i].Par.HP = 0;
+                        game.GameObjectsList[i].StartDestroy();
                     }
                 }
             } 

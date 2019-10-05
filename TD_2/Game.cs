@@ -21,6 +21,7 @@ namespace TowerDefence
         public int totalResources;
         public int ClickTimeCount;
         public UGameObjectBase Base;
+        public Dictionary<string, int> PriceList = new Dictionary<string, int>();
         public Game(int teams)
         {
             for(int i = 0; i < teams; i++)
