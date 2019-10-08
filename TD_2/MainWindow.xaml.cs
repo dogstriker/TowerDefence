@@ -61,11 +61,11 @@ namespace TowerDefence
             game.timer.AddAction(ShowResources, 1000);
             
             game.AddBase(game.Map.XAbsolute / 2, game.Map.YAbsolute / 2, "base");
-            game.CreateTank("scavenger", 500, 500);
+           // game.CreateTank("scavenger", 500, 500);
            // game.AddObject("SimpleFlyer", new GOParams { X = game.Map.XAbsolute, Y = game.Map.YAbsolute });
             //game.CreateTank("enemyLightTank", 1300, 500);
            
-            game.CreateTank("Baneblade",100, 200);
+           // game.CreateTank("Baneblade",100, 200);
             game.CreateTank("enemyLightTank", 5, 500);
             
         
@@ -115,19 +115,33 @@ namespace TowerDefence
             switch (s)
             {
                 case "allyLightTank":
-                    unitsPanel.SetItemBackground("allyLightTank", Brushes.LightGreen);
+                    if (game.totalResources >= game.PriceList["allyLightTank"])
+                    {
+                        unitsPanel.SetItemBackground("allyLightTank", Brushes.LightGreen);
+                        game.CreateTank("allyLightTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                        game.totalResources -= game.PriceList["allyLightTank"];
+                    }
                     
-                    game.CreateTank("allyLightTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
                     break;
                 case "allyMediumTank":
-                    unitsPanel.SetItemBackground("allyMediumTank", Brushes.LightGreen);
-                    
-                    game.CreateTank("allyMediumTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                    if (game.totalResources >= game.PriceList["allyMediumTank"])
+                    {
+
+                        unitsPanel.SetItemBackground("allyMediumTank", Brushes.LightGreen);
+
+                        game.CreateTank("allyMediumTank", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                        game.totalResources -= game.PriceList["allyMediumTank"];
+
+                    }
                     break;
                 case "scavenger":
-                    unitsPanel.SetItemBackground("scavenger", Brushes.LightGreen);
-                    
-                    game.CreateTank("scavenger", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                    if (game.totalResources >= game.PriceList["scavenger"])
+                    {
+                        unitsPanel.SetItemBackground("scavenger", Brushes.LightGreen);
+
+                        game.CreateTank("scavenger", (int)game.Base.Par.X, (int)game.Base.Par.Y);
+                        game.totalResources -= game.PriceList["scavenger"];
+                    }
                     break;
             }
 

@@ -18,10 +18,11 @@ namespace TowerDefence
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
         public UGameObjectBase ClickedObj;
         public UGameObjectBase RightClickedObj;
-        public int totalResources;
+        public int totalResources=1000;
         public int ClickTimeCount;
         public UGameObjectBase Base;
         public Dictionary<string, int> PriceList = new Dictionary<string, int>();
+        public List<string>[] tierList = new List<string>[5];
         public Game(int teams)
         {
             for(int i = 0; i < teams; i++)
@@ -29,7 +30,13 @@ namespace TowerDefence
                 teamUnits.Add(new List<UGameObjectBase>());
             }
             timer.AddAction(EnemiesAct, 10);
-            //timer.AddAction(checkEnemyHits, 10);
+            PriceList.Add("scavenger", 50);
+            PriceList.Add("allyLightTank", 100);
+            PriceList.Add("allyMediumTank", 250);
+            PriceList.Add("Baneblade", 700);
+
+
+
         }
         void EnemiesAct()
         {
