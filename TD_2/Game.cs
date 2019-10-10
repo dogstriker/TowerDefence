@@ -8,6 +8,7 @@ namespace TowerDefence
 {
     public class Game
     {
+        Random r=new Random();
         public UniversalMap_Wpf Map;
         public List<UGameObjectBase> GameObjectsList = new List<UGameObjectBase>();
         public TimerController timer = new TimerController();
@@ -18,11 +19,14 @@ namespace TowerDefence
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
         public UGameObjectBase ClickedObj;
         public UGameObjectBase RightClickedObj;
-        public int totalResources=1000;
+        public int totalResources=500;
         public int ClickTimeCount;
         public UGameObjectBase Base;
         public Dictionary<string, int> PriceList = new Dictionary<string, int>();
-        public List<string>[] tierList = new List<string>[5];
+        public Wave[] tierList = new Wave[5];
+        public int WaveNumber;
+        public int WaveCountdown = 300;
+        public int SpawnCountdown=99999999;
         public Game(int teams)
         {
             for(int i = 0; i < teams; i++)
@@ -34,17 +38,60 @@ namespace TowerDefence
             PriceList.Add("allyLightTank", 100);
             PriceList.Add("allyMediumTank", 250);
             PriceList.Add("Baneblade", 700);
+            PriceList.Add("enemyLightTank", 100);
+
+            tierList[0]=new Wave();
+            tierList[0].unitList.Add("enemyLightTank");
+            tierList[0].Resources = 1000;
+            tierList[0].AvgSpawnInterval = 300;
 
 
 
         }
+        void Spawn()
+        {
+            int i;
+            int count=0;
+            while (true)
+            {
+                i = r.Next(0, tierList[WaveNumber].unitList.Count);
+                if (PriceList[tierList[WaveNumber].unitList[i]] < tierList[WaveNumber].Resources)
+                {
+                    //TODO: спаун
+                    tierList[WaveNumber].Resources -= PriceList[tierList[WaveNumber].unitList[i]];
+                    SpawnCountdown = tierList[WaveNumber].AvgSpawnInterval + r.Next(-50, 50);
+                    break;
+                }
+                else
+                {
+                    count++;
+                    if (count > 50)
+                    {
+                        SpawnCountdown = 9999999;
+                        WaveCountdown = 1500;
+                        break;
+                    }
+                }
+            }
+        }
         void EnemiesAct()
         {
             ClickTimeCount--;
+            WaveCountdown--;
+            if (WaveCountdown == 0)
+            {
+
+                SpawnCountdown = tierList[WaveNumber].AvgSpawnInterval + r.Next(-50, 50);
+            }
+            SpawnCountdown--;
+            if (SpawnCountdown == 0)
+            {
+                Spawn();
+            }
             for(int i = 0; i < GameObjectsList.Count; i++)
             {
                 GameObjectsList[i].Act();
-
+                
             }
         }
 

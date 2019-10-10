@@ -96,6 +96,7 @@
     <Compile Include="UCompositeGameObject.cs" />
     <Compile Include="UGameObjectBase.cs" />
     <Compile Include="UGameObjectChild.cs" />
+    <Compile Include="Wave.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
