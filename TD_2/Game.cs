@@ -44,6 +44,10 @@ namespace TowerDefence
             tierList[0].unitList.Add("enemyLightTank");
             tierList[0].Resources = 1000;
             tierList[0].AvgSpawnInterval = 300;
+            tierList[1] = new Wave();
+            tierList[1].unitList.Add("enemyLightTank");
+            tierList[1].Resources = 1000;
+            tierList[1].AvgSpawnInterval = 300;
 
 
 
@@ -57,7 +61,34 @@ namespace TowerDefence
                 i = r.Next(0, tierList[WaveNumber].unitList.Count);
                 if (PriceList[tierList[WaveNumber].unitList[i]] < tierList[WaveNumber].Resources)
                 {
-                    //TODO: спаун
+                    int sideID=r.Next(1, 5);
+                    int coord;
+                    switch (sideID)
+                    {
+                        case 1:
+                            //Left
+                            coord = r.Next(0, Map.YAbsolute);
+                            CreateTank(tierList[WaveNumber].unitList[i], 0, coord);
+                            break;
+                        case 2:
+                            //Right
+                            coord = r.Next(0, Map.YAbsolute);
+                            CreateTank(tierList[WaveNumber].unitList[i], Map.XAbsolute, coord);
+                            break;
+                        case 3:
+                            //Up
+                            coord = r.Next(0, Map.XAbsolute);
+                            CreateTank(tierList[WaveNumber].unitList[i], coord, 0);
+                            break;
+                        case 4:
+                            //Down
+                            coord = r.Next(0, Map.XAbsolute);
+                            CreateTank(tierList[WaveNumber].unitList[i], coord, Map.YAbsolute);
+                            break;
+
+
+                    }
+
                     tierList[WaveNumber].Resources -= PriceList[tierList[WaveNumber].unitList[i]];
                     SpawnCountdown = tierList[WaveNumber].AvgSpawnInterval + r.Next(-50, 50);
                     break;
