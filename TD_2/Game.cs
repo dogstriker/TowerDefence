@@ -19,7 +19,7 @@ namespace TowerDefence
         //List<UGameObjectBase> enemyBullets = new List<UGameObjectBase>();
         public UGameObjectBase ClickedObj;
         public UGameObjectBase RightClickedObj;
-        public int totalResources=500;
+        public int totalResources=1000;
         public int ClickTimeCount;
         public UGameObjectBase Base;
         public Dictionary<string, int> PriceList = new Dictionary<string, int>();
@@ -100,6 +100,7 @@ namespace TowerDefence
                     {
                         SpawnCountdown = 9999999;
                         WaveCountdown = 1500;
+                        WaveNumber++;
                         break;
                     }
                 }
@@ -161,7 +162,7 @@ namespace TowerDefence
             
             return tank;
         }
-        public void CreateTank(string tankName, int x, int y)
+        public void CreateTank(string tankName, int x, int y, int angle=0)
         {
             UCompositeGameObject tank;
             GOParams[] p;
