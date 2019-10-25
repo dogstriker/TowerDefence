@@ -132,7 +132,7 @@ namespace TowerDefence
             Base = new UGameObjectBase(X,Y,picture);
             GameObjectsList.Add(Base);
             Base.SetContainerSize(100, 100);
-            //friendly.Add(Base);
+            friendly.Add(Base);
             Base.Par.HP = 99999;
         }
         UCompositeGameObject AddTank(string[] picList, GOParams[] par)
@@ -173,7 +173,7 @@ namespace TowerDefence
                     
                 case "scavenger":
                         p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=2,AngularVelocity=1},
+                        new GOParams {X=x,Y=y,Velocity=2,AngularVelocity=3},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=3}};
                     p[0].Par.Add("maxSide", 60);
                     p[0].Mass = 75;

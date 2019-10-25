@@ -86,6 +86,7 @@ namespace TowerDefence
         }
         public void StartDestroy()
         { 
+
             game.Map.ContainerSetFrame(this.Container, "exp9");
             game.Map.AnimationStart(this.Container, "explosion", 1,this.Destroyed);
             this.RemoveAllBehaviors();
@@ -95,6 +96,7 @@ namespace TowerDefence
                 for (int j = 0; j < c.Children.Count; j++)
                 {
                     c.Children[j].RemoveAllBehaviors();
+                    c.Children[j].SetContainerSize(0, 0);
                 }
 
 

@@ -84,6 +84,7 @@ namespace TowerDefence
             ReadPictures("platform", "Sand", 9);
             ReadPictures("exp4-", "", 16);
             ReadPictures("blast", "", 9);
+            game.Map.Library.AddPicture("Nothing", "nothing.png");
             game.Map.Library.AddPicture("MediumTank", "MediumTank.png");
             game.Map.Library.AddPicture("scavenger", "scavenger.png");
             game.Map.Library.AddPicture("tank1", "tank1.png");

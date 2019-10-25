@@ -26,7 +26,7 @@ namespace TowerDefence
 
             if (Target != null && Target.Par.HP > 0)
             {
-                var d = GameMath.CompareAngles(unit.Par.Angle, GameMath.GetAngleOfVector(unit.Par.X-Target.Par.X, unit.Par.Y-Target.Par.Y));
+                var d = GameMath.CompareAngles(unit.Par.Angle, GameMath.GetAngleOfVector(Target.Par.X-unit.Par.X, Target.Par.Y-unit.Par.Y));
                 if (d > lastDelta)
                 {
                     deltaCounter++;
@@ -62,7 +62,7 @@ namespace TowerDefence
             {
                 if (targets[i].Par.HP > 0)
                 {
-                    t = GameMath.CompareAngles(unit.Par.Angle, GameMath.GetAngleOfVector(unit.Par.X-targets[i].Par.X, unit.Par.Y-targets[i].Par.Y));
+                    t = GameMath.CompareAngles(unit.Par.Angle, GameMath.GetAngleOfVector(targets[i].Par.X - unit.Par.X, targets[i].Par.Y - unit.Par.Y));
                     if (t < min)
                     {
                         min = t;
