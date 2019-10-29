@@ -3,8 +3,9 @@ using System.Diagnostics;
 
 namespace TowerDefence
 {
-    public class RotateTo : Behavior
+    public class RotateTo : Behavior,IVelocityModifier
     {
+        public double Modifier { get; private set; }
         protected ITargetProvider tarPr;
         protected ICoordinateProvider targetCoords;
         protected UGameObjectBase gObj;

@@ -93,6 +93,7 @@
     <Compile Include="IPositionObserver.cs" />
     <Compile Include="IPositionProvider.cs" />
     <Compile Include="ITargetProvider.cs" />
+    <Compile Include="IVelocityModifier.cs" />
     <Compile Include="UCompositeGameObject.cs" />
     <Compile Include="UGameObjectBase.cs" />
     <Compile Include="UGameObjectChild.cs" />

@@ -49,7 +49,9 @@ namespace TowerDefence
             tierList[1].Resources = 1000;
             tierList[1].AvgSpawnInterval = 300;
 
-
+            RotateTo test = new RotateTo(GameObjectsList[0]);
+            IVelocityModifier v = test;
+            
 
         }
         void Spawn()
