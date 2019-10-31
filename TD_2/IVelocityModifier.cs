@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TowerDefence
 {
-    interface IVelocityModifier
+    public interface IVelocityModifier
     {
         double Modifier { get; }
     }
