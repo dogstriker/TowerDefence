@@ -28,27 +28,10 @@ namespace TowerDefence
         public int Resources { get; set; }
         public int Mass { get; set; }
         private double velocity;
-        public List<IVelocityModifier> VelocityModifiers = new List<IVelocityModifier>();
-
         public Dictionary<string, double> Par=new Dictionary<string,double>();
         public Dictionary<string, string> ParString = new Dictionary<string, string>();
         public double Velocity {
-            get {
-                if (VelocityModifiers.Count == 0)
-                {
-                    return velocity;
-                }
-                else 
-                {
-                    double v = velocity;
-                    for(int i=0;i<VelocityModifiers.Count;i++)
-                    {
-                        v = v * VelocityModifiers[i].Modifier;
-                    }
-                    return v;
-                }
-
-            }
+            get { return velocity; }
             set { velocity = value; UpdateXYVelocity(); }
         }
         public double AngularVelocity { get; set; }

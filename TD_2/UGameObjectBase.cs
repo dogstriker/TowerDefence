@@ -20,7 +20,6 @@ namespace TowerDefence
 
         public string destroyedPictureName;
 
-
         static public Game game;
 
         public clickerBase clicked;
