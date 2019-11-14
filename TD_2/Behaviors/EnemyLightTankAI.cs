@@ -127,8 +127,8 @@ namespace TowerDefence
                 unit.AddBehavior(new MoveForward(),"MoveForward");
                 //что если tempOTRTarget=null?
             }
-            unit.AddBehavior(new RotateTo(currTarget), "RotateTo");
-            CompositeUnit.Children[0].AddBehavior(new RotateTo(currTarget), "RotateTo");
+            unit.AddBehavior(new RotateTo(currTarget,1), "RotateTo");
+            CompositeUnit.Children[0].AddBehavior(new RotateTo(currTarget,1), "RotateTo");
         }
         void RemoveAllBehaviorsExceptAI()
         {

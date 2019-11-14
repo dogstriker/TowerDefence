@@ -28,7 +28,7 @@ namespace TowerDefence
             if (dx <= Prec && dy <= Prec)
             {
                 NextPoint();
-                LinkBehavior("rotateToPoint", new RotateTo(Points[currPoint]));
+                LinkBehavior("rotateToPoint", new RotateTo(Points[currPoint],1));
             }
             else
             {
@@ -68,7 +68,7 @@ namespace TowerDefence
         public override void Init(params object[] par)
         {
             LinkBehavior("moveForward", new MoveForward());
-            LinkBehavior("rotateToPoint", new RotateTo(Points[0]));
+            LinkBehavior("rotateToPoint", new RotateTo(Points[0],1));
         }
     }
 }

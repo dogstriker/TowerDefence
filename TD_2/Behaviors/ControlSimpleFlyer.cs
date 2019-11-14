@@ -32,7 +32,7 @@ namespace TowerDefence
                     if (!GameMath.IsNearby(unit.Par, Target, 150))
                     {
                         GetTarget();
-                        unit.AddBehavior(new RotateTo(Target), "rotate");
+                        unit.AddBehavior(new RotateTo(Target,1), "rotate");
                         State = 1;
                     }
                     break;
@@ -54,7 +54,7 @@ namespace TowerDefence
 
             // задаем начальное состояние и поведение
             State = 1;
-            unit.AddBehavior(new RotateTo(Target), "rotate");
+            unit.AddBehavior(new RotateTo(Target,1), "rotate");
         }
     }
 }

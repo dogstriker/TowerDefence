@@ -41,7 +41,7 @@ namespace TowerDefence
             {
         
                 unit.RemoveBehavior("RotateTo");
-                unit.AddBehavior(new RotateTo(Target.Par), "RotateTo");
+                unit.AddBehavior(new RotateTo(Target.Par,1), "RotateTo");
             }
         
         }

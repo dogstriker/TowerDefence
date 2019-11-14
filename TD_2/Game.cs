@@ -49,9 +49,7 @@ namespace TowerDefence
             tierList[1].Resources = 1000;
             tierList[1].AvgSpawnInterval = 300;
 
-            RotateTo test = new RotateTo(GameObjectsList[0]);
-            IVelocityModifier v = test;
-            
+
 
         }
         void Spawn()
@@ -199,7 +197,7 @@ namespace TowerDefence
                     break;
                 case "allyLightTank":
                         p=new GOParams []{
-                        new GOParams {X=x,Y=y,Velocity=1,AngularVelocity=1},
+                        new GOParams {X=x,Y=y,Velocity=1.75,AngularVelocity=1},
                         new GOParams{X=x,Y=y,AngularVelocity=1.5,ChargeLevel=1000,ChargeReady=1000,ChargeRate=200}};
                     p[0].Par.Add("maxSide", 60);
                     p[0].Type = UnitTypes.ground;
@@ -217,7 +215,7 @@ namespace TowerDefence
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
-                    tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
+                    tank.Children[0].AddBehavior(new RotateTo(v,1), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v,"LightShell",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
@@ -247,7 +245,7 @@ namespace TowerDefence
                        //добавить танк в списки союзников и игровых обьектов
                        // слежение за целью и выстрел для башни
                     tank.Children[0].AddBehavior(v, "SelectNearestByAngle");
-                    tank.Children[0].AddBehavior(new RotateTo(v), "RotateTo");
+                    tank.Children[0].AddBehavior(new RotateTo(v,1), "RotateTo");
                     tank.Children[0].AddBehavior(new ShootWhenAimed(v,"ArmorPiercing",enemies), "ShootWhenAimed");
                     tank.Children[0].AddBehavior(new Reloading(), "Reloading");
                     //tank.Children[0].AddBehavior(new SynchronizeCoords(tank.Par), "SynchronizeCoords");
@@ -284,7 +282,7 @@ namespace TowerDefence
                             v = new SelectNearestByAngle(enemies);
                             tank.Children[i].Par.CopyParWithoutPosition(p[i+1]);
                             tank.Children[i].AddBehavior(v, "SelectNearestByAngle");
-                            tank.Children[i].AddBehavior(new RotateTo(v), "RotateTo");
+                            tank.Children[i].AddBehavior(new RotateTo(v,1), "RotateTo");
                             tank.Children[i].AddBehavior(new ShootWhenAimed(v, "ArmorPiercing", enemies), "ShootWhenAimed");
                             tank.Children[i].AddBehavior(new Reloading(), "Reloading");
                             Map.ContainerSetLeftClickHandler(tank.Children[i].Container, ClickType.Left, tank.Click);
@@ -293,7 +291,7 @@ namespace TowerDefence
                         v = new SelectNearestByAngle(enemies);
                         tank.Children[4].Par.CopyParWithoutPosition(p[5]);
                         tank.Children[4].AddBehavior(v, "SelectNearestByAngle");
-                        tank.Children[4].AddBehavior(new RotateTo(v), "RotateTo");
+                        tank.Children[4].AddBehavior(new RotateTo(v,1), "RotateTo");
                         tank.Children[4].AddBehavior(new ShootWhenAimed(v, "Ripper", enemies), "ShootWhenAimed");
                         tank.Children[4].AddBehavior(new Reloading(), "Reloading");
                         Map.ContainerSetLeftClickHandler(tank.Children[4].Container, ClickType.Left, tank.Click);
@@ -353,7 +351,7 @@ namespace TowerDefence
                 ClickedObj.RemoveBehavior("RotateTo");
                 ClickedObj.RemoveBehavior("StopAtPoint");
                 ClickedObj.AddBehavior(new MoveForward(), "MoveForward");
-                ClickedObj.AddBehavior(new RotateTo(c), "RotateTo");
+                ClickedObj.AddBehavior(new RotateTo(c,0.75), "RotateTo");
                 var b = new StopAtPoint(c);
                 ClickedObj.AddBehavior(b,"StopAtPoint");
                 b.SetMinimalRange();

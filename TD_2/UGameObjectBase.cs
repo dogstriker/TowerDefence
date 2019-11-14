@@ -51,7 +51,7 @@ namespace TowerDefence
                     o.Children[i].RemoveBehavior("SelectNearestByAngle");
                     o.Children[i].RemoveBehavior("RotateTo");
                     o.Children[i].RemoveBehavior("ShootWhenAimed");
-                    o.Children[i].AddBehavior(new RotateTo(this.Par), "RotateTo");
+                    o.Children[i].AddBehavior(new RotateTo(this.Par,1), "RotateTo");
                     o.Children[i].AddBehavior(new ShootWhenAimed(this, o.Children[i].Par.ParString["ShellName"], game.enemies), "ShootWhenAimed");
                 }
             }
@@ -129,10 +129,18 @@ namespace TowerDefence
 
         public void AddBehavior(IBehavior b, string behaviorName)
         {
+            if(b is IVelocityModifier)
+            {
+                Par.VelocityModifiers.Add((IVelocityModifier)b);
+                Par.UpdateXYVelocity();
+
+            }
             b.SetUnit(this, behaviorName);
             b.Init();
+            
             if (actions.ContainsKey(b.Name)) actions[b.Name] = b;
             else actions.Add(b.Name, b);
+            
             act.Add(b);
         }
         public IBehavior GetBehavior(string BehaviorName)
@@ -148,8 +156,14 @@ namespace TowerDefence
         }
         public void RemoveBehavior(string name)
         {
+            
             if (actions.ContainsKey(name))
             {
+                if (actions[name] is IVelocityModifier)
+                { 
+                Par.VelocityModifiers.Remove((IVelocityModifier) actions[name]);
+                Par.UpdateXYVelocity();
+                }
                 act.Remove(actions[name]);
                 actions.Remove(name);
             }

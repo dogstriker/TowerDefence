@@ -44,6 +44,11 @@ namespace TowerDefence
                     for(int i=0;i<VelocityModifiers.Count;i++)
                     {
                         v = v * VelocityModifiers[i].Modifier;
+                        if (VelocityModifiers[i].Modifier < 1)
+                        {
+                            v = v;
+
+                        }
                     }
                     return v;
                 }
@@ -77,8 +82,8 @@ namespace TowerDefence
 
         public void UpdateXYVelocity()
         {
-            Vx = velocity * Math.Cos(GameMath.DegreesToRad(angle));
-            Vy = velocity * Math.Sin(GameMath.DegreesToRad(angle));
+            Vx = Velocity * Math.Cos(GameMath.DegreesToRad(angle));
+            Vy = Velocity * Math.Sin(GameMath.DegreesToRad(angle));
         }
 
         public string debug;
